@@ -1,0 +1,19 @@
+/**@tailwind base; **/
+@tailwind components;
+@tailwind utilities;
+
+a {
+    @apply no-underline;
+}
+
+h1 {
+    @apply text-xl es:text-3xl font-normal text-black;
+}
+
+.link-nav {
+    @apply no-underline uppercase es:text-sm lg:text-base font-medium transition-all hover:text-yellow-500;
+}
+
+.link-drawer {
+    @apply p-2 no-underline uppercase transition-all hover:text-yellow-500;
+}

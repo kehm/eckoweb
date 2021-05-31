@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+}
+
+#root {
+    min-width: 360px;
+    width: 100%;
+    min-height: 100%;
+}
+
+.even {
+    min-height: 380px;
+}
+
+.error::before {
+    display: inline;
+    content: "⚠ ";
+}
+
+div.react-confirm-alert-overlay {
+    z-index: 2000;
+}

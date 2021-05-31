@@ -1,0 +1,23 @@
+# Node
+node_modules/
+dist/
+build/
+.eslintcache
+*.dev.js
+
+# Log
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Env
+.env
+nginx/
