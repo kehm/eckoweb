@@ -14,7 +14,6 @@ const TokenExpired = () => (
                 className="text-blue-400"
             >
                 {strings.linkSignIn}
-                &nbsp;
             </Link>
             {strings.infoLinkExpired}
         </p>

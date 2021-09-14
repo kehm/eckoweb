@@ -202,9 +202,7 @@ const App = () => {
         rel="noopener noreferrer"
         href={`${strings.orcidUrl}${login.orcid}`}
       >
-        &nbsp;
-        {strings.orcidUrl}
-        {login.orcid}
+        {` ${strings.orcidUrl}${login.orcid}`}
       </a>
       <Link
         className="text-darkGrey"
@@ -212,7 +210,6 @@ const App = () => {
         onClick={() => { invalidate(); setSecondaryNav(secondaryNav + 1); }}
         title={strings.signOut}
       >
-        &nbsp;
         {strings.signOutsmall}
       </Link>
     </span>

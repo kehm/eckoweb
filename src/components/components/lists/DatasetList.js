@@ -15,11 +15,10 @@ const DatasetList = ({ datasets, dataset }) => {
             {datasets && datasets.map((data) => (
                 <ListItem
                     key={data.datasetId}
-                    className="cursor-pointer rounded"
+                    className={`rounded cursor-pointer bg-gray-100 hover:bg-blue-100 h-24 mb-2 shadow-md ${dataset && data.datasetId === dataset.metadata.datasetId ? 'bg-blue-200' : ''}`}
                     onClick={() => history.push(`/datasets/${data.datasetId}`)}
                 >
                     <ListItemText
-                        className={dataset && data.datasetId === dataset.metadata.datasetId ? 'text-yellow-500' : ''}
                         primary={data.datasetId}
                         secondary={`${data.survey.charAt(0)}${data.survey.substring(1).toLowerCase()}`}
                     />

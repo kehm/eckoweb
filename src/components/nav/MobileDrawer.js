@@ -38,16 +38,12 @@ const MobileDrawer = ({ selected, onSelect, onClickSignOut }) => {
                 </ListItem>
                 <ListItem button component={Link} to="/about/whatis" onClick={() => { onSelect(1); setOpen(false); }}>
                     <span className="link-drawer text-xs pl-2 ml-2 text-darkGrey">
-                        -
-                        &nbsp;
-                        {strings.navWhatIs}
+                        {`- ${strings.navWhatIs}`}
                     </span>
                 </ListItem>
                 <ListItem button component={Link} to="/about/team" onClick={() => { onSelect(1); setOpen(false); }}>
                     <span className="link-drawer text-xs pl-2 ml-2 text-darkGrey">
-                        -
-                        &nbsp;
-                        {strings.navTeam}
+                        {`- ${strings.navTeam}`}
                     </span>
                 </ListItem>
                 <ListItem button component={Link} to="/datasets" onClick={() => { onSelect(2); setOpen(false); }}>

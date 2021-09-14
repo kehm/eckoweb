@@ -145,9 +145,7 @@ const Submit = ({ onNav, edit }) => {
                     className="text-blue-400"
                     onClick={() => onNav()}
                 >
-                    &nbsp;
                     {strings.profilePage}
-                    &nbsp;
                 </Link>
                 {strings.toCheckProfile}
             </p>

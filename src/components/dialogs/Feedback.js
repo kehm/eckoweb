@@ -41,8 +41,7 @@ const Feedback = ({ feedbackTrigger }) => {
             value: 'HELP',
             label:
                 <>
-                    <HelpOutline className="align-bottom mr-2" />
-                    &nbsp;
+                    <HelpOutline className="align-bottom mr-4" />
                     {strings.help}
                 </>,
         },
@@ -50,8 +49,7 @@ const Feedback = ({ feedbackTrigger }) => {
             value: 'ERROR',
             label:
                 <>
-                    <ErrorOutline className="align-bottom mr-2" />
-                    &nbsp;
+                    <ErrorOutline className="align-bottom mr-4" />
                     {strings.bugReport}
                 </>,
         },
@@ -59,8 +57,7 @@ const Feedback = ({ feedbackTrigger }) => {
             value: 'SUGGESTION',
             label:
                 <>
-                    <ChatBubbleOutline className="align-bottom mr-2" />
-                    &nbsp;
+                    <ChatBubbleOutline className="align-bottom mr-4" />
                     {strings.suggestion}
                 </>,
         },

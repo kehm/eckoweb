@@ -138,8 +138,7 @@ const PolicyForm = ({
                         href={strings.urlCc}
                         title={strings.urlCc}
                     >
-                        <OpenInNewOutlined className="align-bottom" />
-                        &nbsp;
+                        <OpenInNewOutlined className="align-bottom mr-1" />
                         {strings.aboutLicenses}
                     </a>
                 </>

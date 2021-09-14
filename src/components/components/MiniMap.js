@@ -24,7 +24,7 @@ const MiniMap = ({
 
     return (
         <ReactMapGL
-            className="m-auto"
+            className="m-auto border-solid rounded"
             {...viewport}
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
             mapStyle="mapbox://styles/mapbox/satellite-v9"

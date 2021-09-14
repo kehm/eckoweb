@@ -132,10 +132,21 @@ const Home = ({ content, onNavSelect }) => {
                     <a className="text-darkGrey" target="_blank" rel="noopener noreferrer" href={strings.urlVues}>
                         {strings.bgImgName}
                     </a>
-                    &nbsp;{strings.by} {strings.bgImgOwner}, {strings.usedUnder} <a className="text-darkGrey" target="_blank" rel="noopener noreferrer" href={strings.urlCCBY40}>{strings.ccby40}</a> | {strings.bgImgChanges}
+                    {` ${strings.by} ${strings.bgImgOwner}, ${strings.usedUnder} `}
+                    <a
+                        className="text-darkGrey"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={strings.urlCCBY40}
+                    >
+                        {strings.ccby40}
+                    </a>
+                    {` | ${strings.bgImgChanges}`}
                 </p>
                 <p>
-                    {strings.copyright} &copy; {strings.year} {strings.depName} | {strings.allRightsReserved}
+                    {strings.copyright}
+                    &copy;
+                    {` ${strings.year} ${strings.depName} | ${strings.allRightsReserved}`}
                 </p>
             </div>
         </>

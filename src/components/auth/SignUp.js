@@ -69,7 +69,6 @@ const SignUp = ({ status }) => {
                     <h1 className="pb-2">{strings.welcome}</h1>
                     <p className="mb-6 font-semibold">
                         {strings.orcidSuccess}
-                        &nbsp;
                         <img src={logo} alt="ORCID iD logo" height={32} className="align-bottom ml-2" />
                     </p>
                     {renderForm()}

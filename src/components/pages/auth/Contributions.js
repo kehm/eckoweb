@@ -38,7 +38,11 @@ const Contributions = ({ onNav }) => {
                     </div>
                     {dataset && (
                         <div className="flex-1 px-2 xl:ml-8">
-                            <Dataset dataset={dataset} licenses={licenses} hideActions />
+                            <Dataset
+                                dataset={dataset}
+                                licenses={licenses}
+                                hideActions
+                            />
                         </div>
                     )}
                 </div>
@@ -53,9 +57,7 @@ const Contributions = ({ onNav }) => {
                             className="text-blue-400"
                             onClick={() => onNav()}
                         >
-                            &nbsp;
                             {strings.submitPage}
-                            &nbsp;
                         </Link>
                         {strings.toSubmit}
                     </p>

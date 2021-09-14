@@ -69,8 +69,7 @@ const FileDrop = ({
                 )}
                 <InputLabel id="file-drop-label">
                     {label}
-                    &nbsp;
-                    {`(${strings.max} ${maxFiles} ${strings.files}, ${strings.maxSize}) ${required ? '*' : ''}`}
+                    {` (${strings.max} ${maxFiles} ${strings.files}, ${strings.maxSize}) ${required ? '*' : ''}`}
                 </InputLabel>
                 <Dropzone
                     onDrop={(dropped) => handleDropFiles(dropped)}

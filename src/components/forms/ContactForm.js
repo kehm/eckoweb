@@ -88,10 +88,13 @@ const ContactForm = ({ onPrev, onNext }) => {
                 InputLabelProps={{ shrink: true }}
             />
             <img src={logo} alt="ORCID iD logo" height={24} className="align-middle" />
-            <a className="text-blue-400 text-sm" target="_blank" rel="noopener noreferrer" href={`${strings.orcidUrl}${login.orcid}`}>
-                &nbsp;
-                {strings.orcidUrl}
-                {login.orcid}
+            <a
+                className="text-blue-400 text-sm"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`${strings.orcidUrl}${login.orcid}`}
+            >
+                {` ${strings.orcidUrl}${login.orcid}`}
             </a>
         </div>
     );

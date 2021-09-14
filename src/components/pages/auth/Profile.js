@@ -51,9 +51,7 @@ const Profile = ({ triggerFeedback }) => {
         <>
             <a className="text-blue-400" target="_blank" rel="noopener noreferrer" href={`${strings.orcidUrl}${login.orcid}`}>
                 <img src={logo} alt="ORCID iD logo" height={24} className="align-middle ml-3" />
-                &nbsp;
-                {strings.orcidUrl}
-                {login.orcid}
+                {` ${strings.orcidUrl}${login.orcid}`}
             </a>
             <ul className="list-none my-6 ml-1">
                 <li className="relative mb-4">
@@ -90,8 +88,7 @@ const Profile = ({ triggerFeedback }) => {
         <div className="pb-24 pt-4 sm:pt-24 px-7 max-w-lg relative m-auto xl:ml-96 leading-normal">
             <p>
                 <InfoPopover content={strings.orcidInfo} placement="right-start" />
-                    &nbsp;
-                    {strings.orcidDetails}
+                {strings.orcidDetails}
             </p>
             {renderProfileInfo()}
             <div className="absolute bottom-0 right-10">

@@ -137,9 +137,7 @@ const Contract = ({
                     rel="noopener noreferrer"
                     href={`${strings.orcidUrl}${contract.ecko_user.orcid}`}
                 >
-                    &nbsp;
-                    {strings.orcidUrl}
-                    {contract.ecko_user.orcid}
+                    {` ${strings.orcidUrl}${contract.ecko_user.orcid}`}
                 </a>
             </div>
             <dl>
@@ -150,7 +148,6 @@ const Contract = ({
                 <dd className="mb-4">{contract.ecko_user.user_email.email}</dd>
                 <dt className="font-light">
                     {strings.labelCreated}
-                    :
                 </dt>
                 <dd className="mb-4">{formatDate(contract.created_at)}</dd>
             </dl>
@@ -168,7 +165,6 @@ const Contract = ({
                 <>
                     <p className="mb-2 mt-6 font-light">
                         {strings.infoProposal}
-                        :
                     </p>
                     <p className="font-semibold mb-4">{contract.proposal}</p>
                 </>
@@ -177,7 +173,6 @@ const Contract = ({
                 <>
                     <p className="mb-2 mt-6 font-light">
                         {strings.headerResponse}
-                        :
                     </p>
                     <p className="font-semibold mb-4">{contract.response}</p>
                 </>

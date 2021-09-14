@@ -49,9 +49,7 @@ const SignIn = ({ props, onPageView }) => {
                             </form>
                             <p className="mt-10">
                                 <InfoPopover content={strings.orcidInfo} placement="right-start" />
-                                &nbsp;
                                 {strings.orcidRegister}
-                                &nbsp;
                                 <a
                                     className="text-blue-400 block sm:inline"
                                     target="_blank"
@@ -59,8 +57,7 @@ const SignIn = ({ props, onPageView }) => {
                                     href={strings.urlOrcidReg}
                                     title={strings.urlOrcidReg}
                                 >
-                                    <OpenInNewOutlined className="align-middle" />
-                                    &nbsp;
+                                    <OpenInNewOutlined className="align-middle mr-1" />
                                     {strings.registerNow}
                                 </a>
                             </p>

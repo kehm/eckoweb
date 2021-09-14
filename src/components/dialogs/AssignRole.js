@@ -95,11 +95,7 @@ const AssignRole = ({
             >
                 {roles.map((element) => (
                     <MenuItem key={element.name} value={element.name}>
-                        {`${element.name.charAt(0)}${element.name.substring(1).toLowerCase().replace(/_/g, ' ')}`}
-                                    &nbsp;
-                                    -
-                                    &nbsp;
-                        {element.description}
+                        {`${element.name.charAt(0)}${element.name.substring(1).toLowerCase().replace(/_/g, ' ')} - ${element.description}`}
                     </MenuItem>
                 ))}
             </Select>
@@ -159,9 +155,7 @@ const AssignRole = ({
                             rel="noopener noreferrer"
                             href={`${strings.orcidUrl}${affiliation.orcid}`}
                         >
-                            &nbsp;
-                            {strings.orcidUrl}
-                            {affiliation.orcid}
+                            {` ${strings.orcidUrl}${affiliation.orcid}`}
                         </a>
                     </div>
                     {renderRoleSelect()}
