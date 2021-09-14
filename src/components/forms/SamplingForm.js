@@ -8,8 +8,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import strings from '../../strings';
 import InfoIcon from '../components/InfoIcon';
 import FormContext from '../../context/FormContext';
-import BackButton from '../components/BackButton';
-import NextButton from '../components/NextButton';
+import BackButton from '../components/buttons/BackButton';
+import NextButton from '../components/buttons/NextButton';
 import createFormHeader from '../../utils/create-form-header';
 
 /**

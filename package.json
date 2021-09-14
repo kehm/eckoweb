@@ -20,6 +20,8 @@
     "@testing-library/user-event": "^7.2.1",
     "autoprefixer": "^9.8.6",
     "axios": "^0.21.1",
+    "ga-4-react": "^0.1.281",
+    "lodash": "^4.17.21",
     "postcss": "^7.0.35",
     "react": "^17.0.1",
     "react-confirm-alert": "^2.7.0",

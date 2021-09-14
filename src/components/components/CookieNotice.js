@@ -1,15 +1,15 @@
 import React from 'react';
-import CookieConsent from 'react-cookie-consent';
 import { Link } from 'react-router-dom';
+import CookieConsent from 'react-cookie-consent';
 import strings from '../../strings';
 
 /**
  * Render cookie notice
  */
-const CookieNotice = () => (
+const CookieNotice = ({ onConsent }) => (
     <CookieConsent
         contentClasses="p-5"
-        containerClasses="sm:h-60 font-sans"
+        containerClasses="font-sans pb-6"
         buttonClasses="h-10 w-24"
         declineButtonClasses="h-10 w-24"
         buttonText={strings.buttonCookieAccept}
@@ -17,8 +17,12 @@ const CookieNotice = () => (
         enableDeclineButton
         flipButtons
         overlay
+        buttonStyle={{ borderRadius: '4px' }}
+        declineButtonStyle={{ borderRadius: '4px' }}
+        onAccept={() => onConsent()}
+        onDecline={() => onConsent()}
     >
-        <h1>{strings.cookieHeader}</h1>
+        <h1 className="text-white">{strings.cookieHeader}</h1>
         <h3 className="my-2">
             {strings.cookieNotice}
             {strings.readOur}

@@ -4,9 +4,9 @@ import strings from '../../strings';
 import LoginContext from '../../context/LoginContext';
 import FormContext from '../../context/FormContext';
 import logo from '../../images/ORCIDiD_iconvector.svg';
-import BackButton from '../components/BackButton';
-import EditableList from '../components/EditableList';
-import NextButton from '../components/NextButton';
+import BackButton from '../components/buttons/BackButton';
+import EditableList from '../components/lists/EditableList';
+import NextButton from '../components/buttons/NextButton';
 import createFormHeader from '../../utils/create-form-header';
 
 /**

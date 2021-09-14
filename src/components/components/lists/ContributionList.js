@@ -6,8 +6,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import EditOutlined from '@material-ui/icons/EditOutlined';
-import strings from '../../strings';
-import formatDate from '../../utils/format-date';
+import strings from '../../../strings';
+import formatDate from '../../../utils/format-date';
 
 /**
  * Render contribution list

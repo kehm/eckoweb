@@ -13,7 +13,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import strings from '../../strings';
 import FormContext from '../../context/FormContext';
 import InfoIcon from '../components/InfoIcon';
-import BackButton from '../components/BackButton';
+import BackButton from '../components/buttons/BackButton';
 import createFormHeader from '../../utils/create-form-header';
 
 /**

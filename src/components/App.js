@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   BrowserRouter, Switch,
   Route, Redirect, Link,
 } from 'react-router-dom';
+import debounce from 'lodash/debounce';
 import axios from 'axios';
+import { getCookieConsentValue } from 'react-cookie-consent';
 import '../styles/tailwind.css';
 import '../styles/styles.css';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -32,6 +34,7 @@ import Privileged from './auth/Privileged';
 import Verify from './auth/Verify';
 import TokenExpired from './auth/TokenExpired';
 import CookieNotice from './components/CookieNotice';
+import trackPageView from '../utils/analytics';
 
 const App = () => {
   // Set initial state
@@ -64,7 +67,8 @@ const App = () => {
 
   const [login, setLogin] = useState(loginState);
   const loginValue = { login, setLogin };
-  const [secondaryNav, setSecondaryNav] = useState(0); // Re-render on secondary nav clicks (e.g. footer)
+  const [cookieConsent, setCookieConsent] = useState(getCookieConsentValue());
+  const [secondaryNav, setSecondaryNav] = useState(0); // Re-render on footer nav clicks
   const [showMap, setShowMap] = useState(true); // Hide map when changing orientation
   const [mapWidth, setMapWidth] = useState(0); // Re-render map on window resize
   const [authCompleted, setAuthCompleted] = useState(false);
@@ -94,6 +98,15 @@ const App = () => {
   useEffect(() => {
     setShowMap(true);
   }, [mapWidth]);
+
+  /**
+   * Check for cookie consent and initialize Google Analytics
+   */
+  useEffect(() => {
+    if (getCookieConsentValue() !== cookieConsent) {
+      setCookieConsent(getCookieConsentValue());
+    }
+  }, [cookieConsent]);
 
   /**
    * Authenticate with API
@@ -150,9 +163,17 @@ const App = () => {
   };
 
   /**
+   * Handle page view tracking
+   */
+  const handlePageView = useCallback(
+    debounce(async (title) => trackPageView(title), 500), [],
+  );
+
+  /**
    * Render single-page layout
    */
   const renderPage = () => {
+    handlePageView(strings.navHome);
     if (window.location.pathname.includes('/home')) setSecondaryNav('home');
     return (
       <div className="mb-64 pb-4">
@@ -212,17 +233,43 @@ const App = () => {
               <div className="border-solid border-0 border-t-2 border-gray-100">
                 <Switch>
                   <Route path="(/|/home)" exact component={() => renderPage()} />
-                  <Route path="/about/:page" render={(props) => <About props={props} content={aboutContent} />} />
+                  <Route
+                    path="/about/:page"
+                    render={(props) => (
+                      <About
+                        props={props}
+                        content={aboutContent}
+                        onPageView={(title) => handlePageView(title)}
+                      />
+                    )}
+                  />
                   <Route path="/expired" exact component={Expired} />
-                  <Route path="/datasets" exact render={() => <Datasets onNav={() => setSecondaryNav(secondaryNav + 1)} />} />
-                  <Route path="/datasets/:id" render={() => <Datasets onNav={() => setSecondaryNav(secondaryNav + 1)} />} />
+                  <Route
+                    path="/datasets"
+                    exact
+                    render={() => (
+                      <Datasets
+                        onNav={() => setSecondaryNav(secondaryNav + 1)}
+                        onPageView={(title) => handlePageView(title)}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/datasets/:id"
+                    render={() => (
+                      <Datasets
+                        onNav={() => setSecondaryNav(secondaryNav + 1)}
+                        onPageView={(title) => handlePageView(title)}
+                      />
+                    )}
+                  />
                   <Route path="/profile" exact render={() => isAuthenticated(<Profile triggerFeedback={() => setFeedbackTrigger(feedbackTrigger + 1)} />)} />
                   <Route path="/submit" exact render={() => isAuthenticated(<Submit onNav={() => setSecondaryNav(secondaryNav + 1)} />)} />
                   <Route path="/edit/:id" exact render={() => isAuthenticated(<Submit onNav={() => setSecondaryNav(secondaryNav + 1)} edit />)} />
                   <Route path="/contracts" exact render={() => isAuthenticated(<Contracts />)} />
                   <Route path="/contributions" exact render={() => isAuthenticated(<Contributions onNav={() => setSecondaryNav(secondaryNav + 1)} />)} />
                   <Route path="/contributions/:id" exact render={() => isAuthenticated(<Contributions onNav={() => setSecondaryNav(secondaryNav + 1)} />)} />
-                  <Route path="/auth/:status" exact render={(props) => <SignIn props={props} />} />
+                  <Route path="/auth/:status" exact render={(props) => <SignIn props={props} onPageView={(title) => handlePageView(title)} />} />
                   <Route path="/verified" exact component={Verified} />
                   <Route path="/token-expired" exact component={TokenExpired} />
                   <Route path="/privileged" exact component={Privileged} />
@@ -242,9 +289,9 @@ const App = () => {
               </div>
             </div>
           )}
+          <CookieNotice onConsent={() => setCookieConsent(getCookieConsentValue())} />
         </ThemeProvider>
       </LoginContext.Provider>
-      {/*<CookieNotice />*/}
     </BrowserRouter>
   );
 };

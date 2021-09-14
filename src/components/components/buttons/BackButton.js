@@ -1,7 +1,7 @@
 import React from 'react';
 import NavigateBefore from '@material-ui/icons/NavigateBefore';
 import Button from '@material-ui/core/Button';
-import strings from '../../strings';
+import strings from '../../../strings';
 
 /**
  * Render back button

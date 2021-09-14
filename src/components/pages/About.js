@@ -3,11 +3,12 @@ import { Remarkable } from 'remarkable';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import strings from '../../strings';
 
 /**
  * Render about page
  */
-const About = ({ props, content }) => {
+const About = ({ props, content, onPageView }) => {
     const md = new Remarkable();
     const [tab, setTab] = useState(0);
 
@@ -40,44 +41,48 @@ const About = ({ props, content }) => {
      *
      * @returns Div with HTML
      */
-    const renderAbout = () => (
-        content && content.about && (
-            <div className="p-5 xl:px-48 text-left" dangerouslySetInnerHTML={{ __html: md.render(content.about.Content) }} />
-        )
-    );
+    const renderAbout = () => {
+        onPageView(strings.navAbout);
+        return (content && content.about && (
+            <div className="p-5 xl:px-48 text-left" dangerouslySetInnerHTML={{ __html: md.render(content.about.Content) }} />)
+        );
+    };
 
     /**
      * Render what is ECKO section
      *
      * @returns Div with HTML
      */
-    const renderWhatIs = () => (
-        content && content.whatIs && (
-            <div className="p-5 xl:px-48 text-left" dangerouslySetInnerHTML={{ __html: md.render(content.whatIs.Content) }} />
-        )
-    );
+    const renderWhatIs = () => {
+        onPageView(strings.navWhatIs);
+        return (content && content.whatIs && (
+            <div className="p-5 xl:px-48 text-left" dangerouslySetInnerHTML={{ __html: md.render(content.whatIs.Content) }} />)
+        );
+    };
 
     /**
      * Render team section
      *
      * @returns Div with HTML
      */
-    const renderTeam = () => (
-        content && content.team && (
-            <div className="p-5 xl:px-48 text-left" dangerouslySetInnerHTML={{ __html: md.render(content.team.Content) }} />
-        )
-    );
+    const renderTeam = () => {
+        onPageView(strings.navTeam);
+        return (content && content.team && (
+            <div className="p-5 xl:px-48 text-left" dangerouslySetInnerHTML={{ __html: md.render(content.team.Content) }} />)
+        );
+    };
 
     /**
      * Render privacy policy section
      *
      * @returns Div with HTML
      */
-    const renderPrivacyPolicy = () => (
-        content && content.privacyPolicy && (
-            <div className="p-5 xl:px-48 text-left" dangerouslySetInnerHTML={{ __html: md.render(content.privacyPolicy.Content) }} />
-        )
-    );
+    const renderPrivacyPolicy = () => {
+        onPageView(strings.navPrivacy);
+        return (content && content.privacyPolicy && (
+            <div className="p-5 xl:px-48 text-left" dangerouslySetInnerHTML={{ __html: md.render(content.privacyPolicy.Content) }} />)
+        );
+    };
 
     return (
         <>

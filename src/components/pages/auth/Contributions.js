@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import useFetch from '../../../hooks/useFetch';
 import strings from '../../../strings';
 import Dataset from '../Dataset';
-import ContributionList from '../../components/ContributionList';
+import ContributionList from '../../components/lists/ContributionList';
 
 /**
  * Show list of datasets uploaded by the user

@@ -6,12 +6,12 @@ import useFetch from '../../hooks/useFetch';
 import Filter from '../dialogs/Filter';
 import filterMetadata from '../../utils/filter-metadata';
 import Dataset from './Dataset';
-import DatasetList from '../components/DatasetList';
+import DatasetList from '../components/lists/DatasetList';
 
 /**
  * Show list of available datasets
  */
-const Datasets = ({ onNav }) => {
+const Datasets = ({ onNav, onPageView }) => {
     const { id } = useParams();
     const datasets = useFetch(`${process.env.REACT_APP_API_URL}/datasets/metadata`);
     const licenses = useFetch(`${process.env.REACT_APP_API_URL}/db/licenses`);
@@ -26,6 +26,7 @@ const Datasets = ({ onNav }) => {
      * Scroll to top on page load
      */
     useEffect(() => {
+        onPageView(id || strings.navDatasets);
         window.scrollTo(0, 0);
         if (datasets && datasets.length > 0) {
             if (id) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import NavigateNext from '@material-ui/icons/NavigateNext';
 import Button from '@material-ui/core/Button';
-import strings from '../../strings';
+import strings from '../../../strings';
 
 /**
  * Render next button

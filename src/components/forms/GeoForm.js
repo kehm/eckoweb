@@ -10,9 +10,9 @@ import InfoIcon from '../components/InfoIcon';
 import FormContext from '../../context/FormContext';
 import InfoPopover from '../components/InfoPopover';
 import MiniMap from '../components/MiniMap';
-import BackButton from '../components/BackButton';
+import BackButton from '../components/buttons/BackButton';
 import continents from '../../continents';
-import NextButton from '../components/NextButton';
+import NextButton from '../components/buttons/NextButton';
 import createFormHeader from '../../utils/create-form-header';
 
 /**

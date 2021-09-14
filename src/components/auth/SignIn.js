@@ -11,7 +11,7 @@ import SignUp from './SignUp';
 /**
  * Sign in with the backend API
  */
-const SignIn = ({ props }) => {
+const SignIn = ({ props, onPageView }) => {
     const { login, setLogin } = useContext(LoginContext);
     const history = useHistory();
 
@@ -19,6 +19,7 @@ const SignIn = ({ props }) => {
      * Check if success or signup required
      */
     useEffect(() => {
+        onPageView(strings.navContribute);
         if (props.match.params.status === 'success') {
             setLogin(createProfile(true));
             history.push('/submit');
