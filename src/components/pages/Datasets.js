@@ -66,12 +66,12 @@ const Datasets = ({ onNav, onPageView }) => {
     return (
         <div className="w-full">
             <div className="lg:flex m-auto">
-                <div className="w-full lg:w-96 px-2 pl-6 py-10 relative">
+                <div className="w-96 px-2 pl-6 py-10 relative">
                     <div className="ml-2 mb-2">
                         <h1 className="font-light text-2xl mb-2 ml-1">
                             {strings.headerDatasets}
                         </h1>
-                        <span className="hidden sm:inline absolute right-2 top-10 text-blue-600">
+                        <span className="hidden sm:inline absolute right-2 top-10 text-blue-400">
                             <Button
                                 variant="text"
                                 color={filterActive ? 'primary' : 'inherit'}

@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
 import Message from '@material-ui/icons/Message';
 import Close from '@material-ui/icons/Close';
 import HelpOutline from '@material-ui/icons/HelpOutline';
@@ -20,6 +19,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import strings from '../../strings';
 import LoginContext from '../../context/LoginContext';
+import submitFeedback from '../../utils/api/feedback';
 
 /**
  * Show feedback dialog
@@ -79,18 +79,10 @@ const Feedback = ({ feedbackTrigger }) => {
 
     /**
      * Send report to backend
-     *
-     * @param {Object} body Report body
      */
-    const sendReport = async (body) => {
+    const sendReport = async () => {
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/db/feedback`, body, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                timeout: process.env.REACT_APP_HTTP_TIMEOUT,
-            });
+            await submitFeedback(formValues);
         } catch (err) {
             setError(true);
         }
@@ -108,7 +100,7 @@ const Feedback = ({ feedbackTrigger }) => {
             title: strings.headerConfirm,
             message: strings.textConfirmSubmitReport,
             buttons: [
-                { label: strings.yes, onClick: () => sendReport(formValues) },
+                { label: strings.yes, onClick: () => sendReport() },
                 { label: strings.no }],
         });
     };

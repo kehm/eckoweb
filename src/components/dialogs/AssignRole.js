@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Close from '@material-ui/icons/Close';
@@ -16,6 +15,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import strings from '../../strings';
 import logo from '../../images/ORCIDiD_iconvector.svg';
+import { changeUserRole } from '../../utils/api/affiliations';
 
 /**
  * Show assign role dialog
@@ -34,9 +34,7 @@ const AssignRole = ({
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`${process.env.REACT_APP_API_URL}/affiliations/role/${affiliation.id}`,
-                { role },
-                { timeout: process.env.REACT_APP_HTTP_TIMEOUT });
+            await changeUserRole(affiliation.id, role);
             setError(false);
             onClose();
             onSuccess();
@@ -50,7 +48,7 @@ const AssignRole = ({
      */
     const removeAffiliation = async () => {
         try {
-            await axios.delete(`${process.env.REACT_APP_API_URL}/affiliations/${affiliation.id}`);
+            await removeAffiliation(affiliation.id);
             setError(false);
             onClose();
             onSuccess();

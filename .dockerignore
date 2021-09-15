@@ -2,3 +2,5 @@ node_modules
 npm-debug.log
 build
 .git
+.eslintcache
+*.dev.js

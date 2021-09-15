@@ -4,7 +4,6 @@ import {
   Route, Redirect, Link,
 } from 'react-router-dom';
 import debounce from 'lodash/debounce';
-import axios from 'axios';
 import { getCookieConsentValue } from 'react-cookie-consent';
 import '../styles/tailwind.css';
 import '../styles/styles.css';
@@ -35,6 +34,7 @@ import Verify from './auth/Verify';
 import TokenExpired from './auth/TokenExpired';
 import CookieNotice from './components/CookieNotice';
 import trackPageView from '../utils/analytics';
+import { invalidateSession, validateSession } from '../utils/api/auth';
 
 const App = () => {
   // Set initial state
@@ -115,9 +115,7 @@ const App = () => {
     if (!authCompleted) {
       const authenticate = async () => {
         try {
-          await axios.post(`${process.env.REACT_APP_API_URL}/auth`,
-            {},
-            { timeout: process.env.REACT_APP_HTTP_TIMEOUT });
+          await validateSession();
           if (!login.authenticated) setLogin(createProfile(true));
         } catch (err) {
           if (login.authenticated) setLogin(createProfile(false));
@@ -133,9 +131,7 @@ const App = () => {
    */
   const invalidate = async () => {
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/auth/invalidate`,
-        {},
-        { timeout: process.env.REACT_APP_HTTP_TIMEOUT });
+      await invalidateSession();
       setLogin(createProfile(false));
     } catch (err) { }
   };

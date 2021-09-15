@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import axios from 'axios';
 import { useHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
 import LocationCity from '@material-ui/icons/LocationCity';
@@ -15,6 +14,7 @@ import AddAffiliation from '../../dialogs/AddAffiliation';
 import createProfile from '../../../utils/create-profile';
 import Admin from '../../dialogs/Admin';
 import ChangeEmail from '../../dialogs/ChangeEmail';
+import { invalidateSession } from '../../../utils/api/auth';
 
 /**
  * User profile page
@@ -34,9 +34,7 @@ const Profile = ({ triggerFeedback }) => {
      */
     const handleChangeAffiliation = async () => {
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/auth/invalidate`,
-                {},
-                { timeout: process.env.REACT_APP_HTTP_TIMEOUT });
+            await invalidateSession();
             setLogin(createProfile(false));
             history.replace('/');
         } catch (err) { }

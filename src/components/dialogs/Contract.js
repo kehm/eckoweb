@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Close from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -15,6 +14,7 @@ import ProgressIndicator from '../components/ProgressIndicator';
 import formatDate from '../../utils/format-date';
 import logo from '../../images/ORCIDiD_iconvector.svg';
 import LicenseLink from '../components/LicenseLink';
+import { withdrawProposal } from '../../utils/api/contracts';
 
 /**
  * Show resolve contract dialog
@@ -33,15 +33,10 @@ const Contract = ({
      */
     const resolveContract = async (accept) => {
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/contracts/resolve`, {
+            await resolveContract({
                 contractId: contract.id,
                 accept,
                 response: !accept ? response : undefined,
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                timeout: process.env.REACT_APP_HTTP_TIMEOUT,
             });
             onSuccess();
             onClose();
@@ -79,16 +74,9 @@ const Contract = ({
     /**
      * Withdraw proposal
      */
-    const withdrawProposal = async () => {
+    const withdraw = async () => {
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/contracts/withdraw`, {
-                contractId: contract.id,
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                timeout: process.env.REACT_APP_HTTP_TIMEOUT,
-            });
+            await withdrawProposal(contract.id);
             onSuccess();
             onClose();
             setError(false);
@@ -105,7 +93,7 @@ const Contract = ({
             title: strings.headerConfirm,
             message: strings.textConfirmWithdraw,
             buttons: [
-                { label: strings.yes, onClick: () => withdrawProposal() },
+                { label: strings.yes, onClick: () => withdraw() },
                 { label: strings.no }],
         });
     };

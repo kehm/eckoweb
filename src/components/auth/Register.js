@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import axios from 'axios';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import LocationCity from '@material-ui/icons/LocationCity';
@@ -8,6 +7,8 @@ import strings from '../../strings';
 import useFetch from '../../hooks/useFetch';
 import LoginContext from '../../context/LoginContext';
 import createProfile from '../../utils/create-profile';
+import { validateSession } from '../../utils/api/auth';
+import { createUserAffiliation } from '../../utils/api/affiliations';
 
 /**
  * Register affiliation
@@ -28,12 +29,8 @@ const Register = ({ onRegister }) => {
         try {
             e.preventDefault();
             onRegister();
-            await axios.post(`${process.env.REACT_APP_API_URL}/affiliations`, {
-                organizationId,
-            }, { timeout: process.env.REACT_APP_HTTP_TIMEOUT });
-            await axios.post(`${process.env.REACT_APP_API_URL}/auth`,
-                {},
-                { timeout: process.env.REACT_APP_HTTP_TIMEOUT });
+            await createUserAffiliation(organizationId);
+            await validateSession();
             setLogin(createProfile(true));
             setSuccess(true);
         } catch (err) {

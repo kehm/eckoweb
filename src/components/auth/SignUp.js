@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useHistory } from 'react-router';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import AlternateEmailOutlined from '@material-ui/icons/AlternateEmailOutlined';
 import strings from '../../strings';
 import logo from '../../images/ORCIDiD_iconvector.svg';
+import { addEmailToProfile } from '../../utils/api/auth';
 
 /**
  * Sign Up with email address
@@ -31,9 +31,7 @@ const SignUp = ({ status }) => {
                 email: formValues.email,
                 organizationId: formValues.organizationId === '' ? 0 : formValues.organizationId,
             };
-            await axios.post(`${process.env.REACT_APP_API_URL}/auth/profile`,
-                values,
-                { timeout: process.env.REACT_APP_HTTP_TIMEOUT });
+            await addEmailToProfile(values);
             history.push({ pathname: '/auth/success', state: { success: true } });
         } catch (err) {
             setError(true);

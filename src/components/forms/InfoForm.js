@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
 import { useHistory } from 'react-router';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -20,6 +19,7 @@ import NextButton from '../components/buttons/NextButton';
 import InfoPopover from '../components/InfoPopover';
 import createFormHeader from '../../utils/create-form-header';
 import ProgressIndicator from '../components/ProgressIndicator';
+import { removeDatasetFile } from '../../utils/api/datasets';
 
 /**
  * Show form for general information
@@ -93,8 +93,7 @@ const InfoForm = ({
      */
     const removeDataset = async () => {
         try {
-            await axios.delete(`${process.env.REACT_APP_API_URL}/datasets/${defaults.datasetId}`, {
-            }, { timeout: process.env.REACT_APP_HTTP_TIMEOUT });
+            await removeDatasetFile(defaults.datasetId);
             setErrorRemove(false);
             history.replace('/contributions');
         } catch (err) {

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Close from '@material-ui/icons/Close';
@@ -12,6 +11,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import strings from '../../strings';
+import { addEmailToProfile } from '../../utils/api/auth';
 
 /**
  * Show change email dialog
@@ -27,9 +27,7 @@ const ChangeEmail = ({
      */
     const changeEmail = async () => {
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/auth/profile`, {
-                email,
-            }, { timeout: process.env.REACT_APP_HTTP_TIMEOUT });
+            await addEmailToProfile(email);
             setError(false);
             onClose();
         } catch (err) {

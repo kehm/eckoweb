@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
 import InfoForm from '../../forms/InfoForm';
 import ContactForm from '../../forms/ContactForm';
 import PolicyForm from '../../forms/PolicyForm';
@@ -16,6 +15,7 @@ import useFetch from '../../../hooks/useFetch';
 import LoginContext from '../../../context/LoginContext';
 import strings from '../../../strings';
 import Register from '../../auth/Register';
+import { createDataset, updateDataset } from '../../../utils/api/datasets';
 
 /**
  * Show form for submitting or editing a dataset
@@ -78,19 +78,9 @@ const Submit = ({ onNav, edit }) => {
     const submitToAPI = async (data) => {
         try {
             if (edit) {
-                await axios.put(`${process.env.REACT_APP_API_URL}/datasets/${id}`, createFormData(data), {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                    timeout: process.env.REACT_APP_HTTP_TIMEOUT,
-                });
+                await updateDataset(id, createFormData(data));
             } else {
-                await axios.post(`${process.env.REACT_APP_API_URL}/datasets`, createFormData(data), {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                    timeout: process.env.REACT_APP_HTTP_TIMEOUT,
-                });
+                await createDataset(createFormData(data));
             }
             setFormSelect(formSelect + 1);
         } catch (err) {

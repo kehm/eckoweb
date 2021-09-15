@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Close from '@material-ui/icons/Close';
@@ -16,6 +15,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import strings from '../../strings';
 import useFetch from '../../hooks/useFetch';
+import { createUserAffiliation } from '../../utils/api/affiliations';
 
 /**
  * Show add affiliation dialog
@@ -45,9 +45,7 @@ const AddAffiliation = ({
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/affiliations`, {
-                organizationId: organization,
-            }, { timeout: process.env.REACT_APP_HTTP_TIMEOUT });
+            await createUserAffiliation(organization);
             setError(false);
             onClose();
             onSuccess();
@@ -61,7 +59,7 @@ const AddAffiliation = ({
      */
     const removeAffiliation = async () => {
         try {
-            await axios.delete(`${process.env.REACT_APP_API_URL}/affiliations/organization/${organizationId}`);
+            await removeAffiliation(organizationId);
             setError(false);
             onClose();
             onSuccess();

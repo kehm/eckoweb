@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import useFetch from '../../../hooks/useFetch';
 import strings from '../../../strings';
 import Dataset from '../Dataset';
-import ContributionList from '../../components/lists/ContributionList';
+import DatasetList from '../../components/lists/DatasetList';
 
 /**
  * Show list of datasets uploaded by the user
@@ -34,7 +34,11 @@ const Contributions = ({ onNav }) => {
                         <h1 className="font-light text-2xl mb-2">
                             {strings.headerDatasets}
                         </h1>
-                        <ContributionList datasets={datasets} dataset={dataset} />
+                        <DatasetList
+                            datasets={datasets}
+                            dataset={dataset}
+                            editable
+                        />
                     </div>
                     {dataset && (
                         <div className="flex-1 px-2 xl:ml-8">

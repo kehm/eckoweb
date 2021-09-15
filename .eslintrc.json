@@ -20,6 +20,7 @@
     "rules": {
         "indent": "off",
         "quote-props": "off",
+        "no-empty": "warn",
         "react/prop-types" : "off",
         "react/jsx-indent": "off",
         "react/jsx-indent-props": "off",

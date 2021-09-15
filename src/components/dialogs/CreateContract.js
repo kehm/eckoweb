@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
 import Close from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -14,6 +13,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import strings from '../../strings';
 import LoginContext from '../../context/LoginContext';
 import ProgressIndicator from '../components/ProgressIndicator';
+import { submitProposal } from '../../utils/api/contracts';
 
 /**
  * Show create contract dialog
@@ -44,15 +44,7 @@ const CreateContract = ({
      */
     const submitRequest = async () => {
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/contracts`, {
-                datasetId: dataset.id,
-                proposal: formValues.proposal,
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                timeout: process.env.REACT_APP_HTTP_TIMEOUT,
-            });
+            await submitProposal(dataset.id, formValues.proposal);
             setTimeout(handleSuccess, 1000);
         } catch (err) {
             setError(true);

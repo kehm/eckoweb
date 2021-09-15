@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import strings from '../../strings';
@@ -11,6 +10,8 @@ import useFetch from '../../hooks/useFetch';
 import Metadata from './Metadata';
 import InfoPopover from '../components/InfoPopover';
 import DownloadButton from '../components/buttons/DownloadButton';
+import { getContract } from '../../utils/api/contracts';
+import { getDatasetFile } from '../../utils/api/datasets';
 
 /**
  * Show details of selected dataset
@@ -36,11 +37,13 @@ const Dataset = ({
      */
     useEffect(() => {
         if (!hideActions && (!contract || contract.datasetId !== dataset.id)) {
-            axios.get(`${process.env.REACT_APP_API_URL}/contracts/dataset/${dataset.id}`, {
-                timeout: process.env.REACT_APP_HTTP_TIMEOUT,
-            }).then((response) => {
-                setContract(response.data);
-            }).catch(() => { });
+            const getDatasetContract = async () => {
+                try {
+                    const tmpContract = await getContract(dataset.id);
+                    setContract(tmpContract);
+                } catch (err) { }
+            };
+            getDatasetContract();
         }
     }, [contract, dataset]);
 
@@ -48,24 +51,19 @@ const Dataset = ({
      * Download file and open download dialog
      */
     const downloadFile = async () => {
-        axios.get(`${process.env.REACT_APP_API_URL}/datasets/${dataset.id}`, {
-            headers: {
-                'Accept': 'application/octect-stream',
-            },
-            timeout: process.env.REACT_APP_HTTP_TIMEOUT,
-            responseType: 'blob',
-        }).then((res) => {
+        try {
+            const blob = await getDatasetFile(dataset.id);
             const link = document.createElement('a');
-            link.href = URL.createObjectURL(new Blob([res.data]));
+            link.href = URL.createObjectURL(new Blob([blob]));
             link.download = dataset.fileInfo.fileName;
             link.click();
             URL.revokeObjectURL(link.href);
             setError(false);
-        }).catch(() => {
+        } catch (err) {
             setError(true);
-        }).finally(() => {
+        } finally {
             setAction(false);
-        });
+        }
     };
 
     /**
