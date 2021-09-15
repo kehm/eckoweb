@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import Close from '@material-ui/icons/Close';
 import SaveOutlined from '@material-ui/icons/SaveOutlined';
 import TextField from '@material-ui/core/TextField';
@@ -12,6 +10,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import strings from '../../strings';
 import { addEmailToProfile } from '../../utils/api/auth';
+import ConfirmAction from './ConfirmAction';
 
 /**
  * Show change email dialog
@@ -20,6 +19,7 @@ const ChangeEmail = ({
     open, onClose,
 }) => {
     const [email, setEmail] = useState(undefined);
+    const [openConfirm, setOpenConfirm] = useState(undefined);
     const [error, setError] = useState(false);
 
     /**
@@ -42,13 +42,7 @@ const ChangeEmail = ({
      */
     const handleChange = (e) => {
         e.preventDefault();
-        confirmAlert({
-            title: strings.headerConfirm,
-            message: strings.textConfirm,
-            buttons: [
-                { label: strings.yes, onClick: () => changeEmail() },
-                { label: strings.no }],
-        });
+        setOpenConfirm(strings.textConfirm);
     };
 
     return (
@@ -92,6 +86,11 @@ const ChangeEmail = ({
                     </Button>
                 </DialogActions>
             </form>
+            <ConfirmAction
+                openContent={openConfirm}
+                onClose={() => setOpenConfirm(undefined)}
+                onConfirm={() => changeEmail()}
+            />
         </Dialog>
     );
 };

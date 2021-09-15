@@ -24,7 +24,3 @@ body {
     display: inline;
     content: "⚠ ";
 }
-
-div.react-confirm-alert-overlay {
-    z-index: 2000;
-}

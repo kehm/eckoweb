@@ -15,11 +15,10 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import strings from '../../strings';
 import LoginContext from '../../context/LoginContext';
 import submitFeedback from '../../utils/api/feedback';
+import ConfirmAction from './ConfirmAction';
 
 /**
  * Show feedback dialog
@@ -32,10 +31,10 @@ const Feedback = ({ feedbackTrigger }) => {
         email: login.authenticated ? login.email : '',
         type: '',
     };
-
     const [openModal, setOpenModal] = useState(false);
     const [formValues, setFormValues] = useState(defaultFormValues);
     const [error, setError] = useState(false);
+    const [openConfirm, setOpenConfirm] = useState(undefined);
     const types = [
         {
             value: 'HELP',
@@ -90,19 +89,13 @@ const Feedback = ({ feedbackTrigger }) => {
     };
 
     /**
-     * Check if form is correctly filled out
+     * Open confirmation dialog
      *
      * @param {Object} e Event
      */
     const handleSubmit = (e) => {
         e.preventDefault();
-        confirmAlert({
-            title: strings.headerConfirm,
-            message: strings.textConfirmSubmitReport,
-            buttons: [
-                { label: strings.yes, onClick: () => sendReport() },
-                { label: strings.no }],
-        });
+        setOpenConfirm(strings.textConfirmSubmitReport);
     };
 
     /**
@@ -177,7 +170,12 @@ const Feedback = ({ feedbackTrigger }) => {
                     <Message />
                 </IconButton>
             </span>
-            <Dialog fullWidth scroll="paper" open={openModal} onClose={() => setOpenModal(false)}>
+            <Dialog
+                fullWidth
+                scroll="paper"
+                open={openModal}
+                onClose={() => setOpenModal(false)}
+            >
                 <form className="font-sans p-2" autoComplete="off" onSubmit={handleSubmit}>
                     <DialogTitle>{strings.headerFeedback}</DialogTitle>
                     <DialogContent>
@@ -195,11 +193,21 @@ const Feedback = ({ feedbackTrigger }) => {
                         {error && <p className="error text-red-600 mb-8">{strings.errorTryAgain}</p>}
                     </DialogContent>
                     <DialogActions>
-                        <Button variant="contained" color="primary" size="large" type="submit">
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            size="large"
+                            type="submit"
+                        >
                             {strings.submit}
                         </Button>
                     </DialogActions>
                 </form>
+                <ConfirmAction
+                    openContent={openConfirm}
+                    onClose={() => setOpenConfirm(undefined)}
+                    onConfirm={() => sendReport()}
+                />
             </Dialog>
         </>
     );

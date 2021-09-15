@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import Close from '@material-ui/icons/Close';
 import SaveOutlined from '@material-ui/icons/SaveOutlined';
 import FormControl from '@material-ui/core/FormControl';
@@ -16,6 +14,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import strings from '../../strings';
 import logo from '../../images/ORCIDiD_iconvector.svg';
 import { changeUserRole } from '../../utils/api/affiliations';
+import ConfirmAction from './ConfirmAction';
 
 /**
  * Show assign role dialog
@@ -24,6 +23,7 @@ const AssignRole = ({
     open, affiliation, roles, onClose, onSuccess,
 }) => {
     const [role, setRole] = useState(affiliation.role);
+    const [openConfirm, setOpenConfirm] = useState(undefined);
     const [error, setError] = useState(false);
 
     /**
@@ -55,19 +55,6 @@ const AssignRole = ({
         } catch (err) {
             setError(true);
         }
-    };
-
-    /**
-     * Show confirm delete dialog
-     */
-    const handleRemove = async () => {
-        confirmAlert({
-            title: strings.headerConfirm,
-            message: strings.textConfirmRemove,
-            buttons: [
-                { label: strings.yes, onClick: () => removeAffiliation() },
-                { label: strings.no }],
-        });
     };
 
     /**
@@ -112,7 +99,7 @@ const AssignRole = ({
                 color="secondary"
                 size="medium"
                 type="button"
-                onClick={() => handleRemove()}
+                onClick={() => setOpenConfirm(strings.textConfirmRemove)}
                 disabled={affiliation.role === 'ADMIN'}
             >
                 {strings.buttonDeleteUserAffil}
@@ -161,6 +148,11 @@ const AssignRole = ({
                 </DialogContent>
                 {renderActions()}
             </form>
+            <ConfirmAction
+                openContent={openConfirm}
+                onClose={() => setOpenConfirm(undefined)}
+                onConfirm={() => removeAffiliation()}
+            />
         </Dialog>
     );
 };

@@ -1,7 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
@@ -20,6 +18,7 @@ import InfoPopover from '../components/InfoPopover';
 import createFormHeader from '../../utils/create-form-header';
 import ProgressIndicator from '../components/ProgressIndicator';
 import { removeDatasetFile } from '../../utils/api/datasets';
+import ConfirmAction from '../dialogs/ConfirmAction';
 
 /**
  * Show form for general information
@@ -45,6 +44,7 @@ const InfoForm = ({
     const [error, setError] = useState(undefined);
     const [errorRemove, setErrorRemove] = useState(false);
     const [showProgress, setShowProgress] = useState(false);
+    const [openConfirm, setOpenConfirm] = useState(undefined);
     const surveys = [
         { value: 'ORIGINAL', label: strings.original },
         { value: 'RESURVEY', label: strings.resurvey },
@@ -108,19 +108,6 @@ const InfoForm = ({
     useEffect(() => {
         if (showProgress) removeDataset();
     }, [showProgress]);
-
-    /**
-     * Show confirm remove dataset dialog
-     */
-    const handleRemoveDataset = () => {
-        confirmAlert({
-            title: strings.headerConfirm,
-            message: strings.textConfirmRemoveDataset,
-            buttons: [
-                { label: strings.yes, onClick: () => setShowProgress(true) },
-                { label: strings.no }],
-        });
-    };
 
     /**
      * Add new reference
@@ -341,7 +328,7 @@ const InfoForm = ({
                 color="secondary"
                 size="medium"
                 type="button"
-                onClick={() => handleRemoveDataset()}
+                onClick={() => setOpenConfirm(strings.textConfirmRemoveDataset)}
             >
                 {strings.removeDataset}
             </Button>
@@ -366,6 +353,11 @@ const InfoForm = ({
                 <NextButton />
             </form>
             <ProgressIndicator open={showProgress} />
+            <ConfirmAction
+                openContent={openConfirm}
+                onClose={() => setOpenConfirm(undefined)}
+                onConfirm={() => setShowProgress(true)}
+            />
         </>
     );
 };

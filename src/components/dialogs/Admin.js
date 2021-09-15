@@ -12,7 +12,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import LibraryBooksOutlined from '@material-ui/icons/LibraryBooksOutlined';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import strings from '../../strings';
 import useFetch from '../../hooks/useFetch';
 import formatDate from '../../utils/format-date';

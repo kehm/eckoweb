@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import Close from '@material-ui/icons/Close';
 import SaveOutlined from '@material-ui/icons/SaveOutlined';
 import FormControl from '@material-ui/core/FormControl';
@@ -16,6 +14,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import strings from '../../strings';
 import useFetch from '../../hooks/useFetch';
 import { createUserAffiliation } from '../../utils/api/affiliations';
+import ConfirmAction from './ConfirmAction';
 
 /**
  * Show add affiliation dialog
@@ -26,6 +25,7 @@ const AddAffiliation = ({
     const organizations = useFetch(`${process.env.REACT_APP_API_URL}/db/organizations`);
     const [affiliations, setAffilitions] = useState(undefined);
     const [organization, setOrganization] = useState('');
+    const [openConfirm, setOpenConfirm] = useState(undefined);
     const [error, setError] = useState(false);
 
     /**
@@ -69,19 +69,6 @@ const AddAffiliation = ({
     };
 
     /**
-     * Show confirm delete dialog
-     */
-    const handleRemove = async () => {
-        confirmAlert({
-            title: strings.headerConfirm,
-            message: strings.textConfirmRemove,
-            buttons: [
-                { label: strings.yes, onClick: () => removeAffiliation() },
-                { label: strings.no }],
-        });
-    };
-
-    /**
      * Render action buttons
      *
      * @returns Dialog actions
@@ -94,7 +81,7 @@ const AddAffiliation = ({
                     color="secondary"
                     size="medium"
                     type="button"
-                    onClick={() => handleRemove()}
+                    onClick={() => setOpenConfirm(strings.textConfirmRemove)}
                 >
                     {strings.buttonDeleteAffiliation}
                 </Button>
@@ -154,6 +141,11 @@ const AddAffiliation = ({
                 </DialogContent>
                 {renderActions()}
             </form>
+            <ConfirmAction
+                openContent={openConfirm}
+                onClose={() => setOpenConfirm(undefined)}
+                onConfirm={() => removeAffiliation()}
+            />
         </Dialog>
     );
 };

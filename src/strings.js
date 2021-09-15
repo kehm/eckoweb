@@ -342,6 +342,7 @@ const strings = {
     textConfirm: 'Are you sure you want to save your changes?',
     unknown: 'Unknown',
     ownerContract: 'You are the owner of this dataset',
+    pleaseConfirm: 'Please Confirm',
 };
 
 export default strings;

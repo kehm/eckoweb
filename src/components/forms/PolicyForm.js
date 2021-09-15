@@ -8,13 +8,12 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import NoteAddOutlined from '@material-ui/icons/NoteAddOutlined';
 import OpenInNewOutlined from '@material-ui/icons/OpenInNewOutlined';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import strings from '../../strings';
 import FormContext from '../../context/FormContext';
 import InfoIcon from '../components/InfoIcon';
 import BackButton from '../components/buttons/BackButton';
 import createFormHeader from '../../utils/create-form-header';
+import ConfirmAction from '../dialogs/ConfirmAction';
 
 /**
  * Show form for general information
@@ -30,28 +29,11 @@ const PolicyForm = ({
         restrictionType: defaults.restrictionType || '',
     };
     const [formValues, setFormValues] = useState(defaultFormValues);
+    const [openConfirm, setOpenConfirm] = useState(undefined);
     const restrictionTypes = [
         { value: 'LICENSE', label: strings.titleLicense },
         { value: 'RESTRICT', label: strings.restrict },
     ];
-
-    /**
-     * Show confirmation dialog and submit form on accept
-     *
-     * @param {Object} formData Form data
-     */
-    const submitForm = (formData) => {
-        confirmAlert({
-            title: strings.headerConfirm,
-            message: edit ? strings.textConfirmSaveDataset : strings.textConfirmSubmitDataset,
-            buttons: [
-                {
-                    label: strings.yes,
-                    onClick: () => onNext(formData),
-                },
-                { label: strings.no }],
-        });
-    };
 
     /**
      * Handle form submission
@@ -65,7 +47,7 @@ const PolicyForm = ({
             terms: formValues.restrictionType === 'RESTRICT' ? formValues.terms : undefined,
         };
         Object.assign(form, values);
-        submitForm(form);
+        setOpenConfirm(edit ? strings.textConfirmSaveDataset : strings.textConfirmSubmitDataset);
     };
 
     /**
@@ -178,7 +160,14 @@ const PolicyForm = ({
             {renderInputs()}
             <p className="mb-6">
                 {strings.readOur}
-                <Link target="_blank" rel="noopener noreferrer" className="text-blue-400" to="/about/privacy"> {strings.privacyPolicy} </Link>
+                <Link
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400"
+                    to="/about/privacy"
+                >
+                    {` ${strings.privacyPolicy} `}
+                </Link>
                 {strings.textBeforeUpload}
                 {strings.byClickingSubmit}
             </p>
@@ -196,6 +185,11 @@ const PolicyForm = ({
                 </Button>
             </div>
             <BackButton onClick={onPrev} />
+            <ConfirmAction
+                openContent={openConfirm}
+                onClose={() => setOpenConfirm(undefined)}
+                onConfirm={() => onNext(form)}
+            />
         </form>
     );
 };

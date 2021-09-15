@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';

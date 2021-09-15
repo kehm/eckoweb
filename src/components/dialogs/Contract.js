@@ -7,14 +7,13 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import strings from '../../strings';
 import ProgressIndicator from '../components/ProgressIndicator';
 import formatDate from '../../utils/format-date';
 import logo from '../../images/ORCIDiD_iconvector.svg';
 import LicenseLink from '../components/LicenseLink';
 import { withdrawProposal } from '../../utils/api/contracts';
+import ConfirmAction from './ConfirmAction';
 
 /**
  * Show resolve contract dialog
@@ -24,6 +23,7 @@ const Contract = ({
 }) => {
     const [response, setResponse] = useState('');
     const [resolve, setResolve] = useState(undefined);
+    const [openConfirm, setOpenConfirm] = useState(undefined);
     const [error, setError] = useState(false);
 
     /**
@@ -61,13 +61,7 @@ const Contract = ({
      */
     const handleResolve = (accept) => {
         if (accept || response !== '') {
-            confirmAlert({
-                title: strings.headerConfirm,
-                message: accept ? strings.textConfirmAccept : strings.textConfirmReject,
-                buttons: [
-                    { label: strings.yes, onClick: () => setResolve(accept) },
-                    { label: strings.no }],
-            });
+            setOpenConfirm(accept ? strings.textConfirmAccept : strings.textConfirmReject);
         }
     };
 
@@ -83,19 +77,6 @@ const Contract = ({
         } catch (err) {
             setError(true);
         }
-    };
-
-    /**
-     * Show confirm withdrawal dialog
-     */
-    const handleWithdraw = () => {
-        confirmAlert({
-            title: strings.headerConfirm,
-            message: strings.textConfirmWithdraw,
-            buttons: [
-                { label: strings.yes, onClick: () => withdraw() },
-                { label: strings.no }],
-        });
     };
 
     /**
@@ -118,7 +99,12 @@ const Contract = ({
                 <dd className="mb-4">{contract.ecko_user.name}</dd>
             </dl>
             <div className="mb-4">
-                <img src={logo} alt="ORCID iD logo" height={24} className="align-middle" />
+                <img
+                    src={logo}
+                    alt="ORCID iD logo"
+                    height={24}
+                    className="align-middle"
+                />
                 <a
                     className="text-blue-400 text-sm"
                     target="_blank"
@@ -151,17 +137,13 @@ const Contract = ({
             )}
             {contract.proposal && (
                 <>
-                    <p className="mb-2 mt-6 font-light">
-                        {strings.infoProposal}
-                    </p>
+                    <p className="mb-2 mt-6 font-light">{strings.infoProposal}</p>
                     <p className="font-semibold mb-4">{contract.proposal}</p>
                 </>
             )}
             {contract.status === 'REJECTED' && contract.response && (
                 <>
-                    <p className="mb-2 mt-6 font-light">
-                        {strings.headerResponse}
-                    </p>
+                    <p className="mb-2 mt-6 font-light">{strings.headerResponse}</p>
                     <p className="font-semibold mb-4">{contract.response}</p>
                 </>
             )}
@@ -208,7 +190,7 @@ const Contract = ({
                         color="secondary"
                         size="large"
                         type="button"
-                        onClick={() => handleWithdraw()}
+                        onClick={() => setOpenConfirm(strings.textConfirmWithdraw)}
                     >
                         {strings.buttonWithdraw}
                     </Button>
@@ -276,6 +258,19 @@ const Contract = ({
                 {contract && renderActions()}
             </form>
             <ProgressIndicator open={resolve !== undefined} />
+            <ConfirmAction
+                openContent={openConfirm}
+                onClose={() => setOpenConfirm(undefined)}
+                onConfirm={() => {
+                    if (openConfirm === strings.textConfirmWithdraw) {
+                        withdraw();
+                    } else if (openConfirm === strings.textConfirmAccept) {
+                        setResolve(true);
+                    } else if (openConfirm === strings.textConfirmReject) {
+                        setResolve(false);
+                    }
+                }}
+            />
         </Dialog>
     );
 };

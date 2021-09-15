@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import strings from '../../strings';
 import formatDate from '../../utils/format-date';
 import MiniMap from '../components/MiniMap';
@@ -12,6 +10,7 @@ import InfoPopover from '../components/InfoPopover';
 import DownloadButton from '../components/buttons/DownloadButton';
 import { getContract } from '../../utils/api/contracts';
 import { getDatasetFile } from '../../utils/api/datasets';
+import ConfirmAction from '../dialogs/ConfirmAction';
 
 /**
  * Show details of selected dataset
@@ -24,6 +23,7 @@ const Dataset = ({
     const [action, setAction] = useState(false);
     const [error, setError] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
+    const [openConfirm, setOpenConfirm] = useState(undefined);
 
     /**
      * Scroll to top on load
@@ -82,15 +82,7 @@ const Dataset = ({
             setAction('DOWNLOAD');
         } else if (dataset.policy.terms) {
             setOpenDialog(true);
-        } else {
-            confirmAlert({
-                title: strings.headerConfirm,
-                message: strings.textConfirmDownload,
-                buttons: [
-                    { label: strings.accept, onClick: () => setAction('DOWNLOAD') },
-                    { label: strings.reject }],
-            });
-        }
+        } else setOpenConfirm(strings.textConfirmDownload);
     };
 
     /**
@@ -229,6 +221,11 @@ const Dataset = ({
                 onSuccess={() => setContract(undefined)}
             />
             <ProgressIndicator open={action} />
+            <ConfirmAction
+                openContent={openConfirm}
+                onClose={() => setOpenConfirm(undefined)}
+                onConfirm={() => setAction('DOWNLOAD')}
+            />
         </div>
     );
 };

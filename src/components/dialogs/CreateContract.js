@@ -8,12 +8,11 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import strings from '../../strings';
 import LoginContext from '../../context/LoginContext';
 import ProgressIndicator from '../components/ProgressIndicator';
 import { submitProposal } from '../../utils/api/contracts';
+import ConfirmAction from './ConfirmAction';
 
 /**
  * Show create contract dialog
@@ -28,6 +27,7 @@ const CreateContract = ({
     };
     const [formValues, setFormValues] = useState(defaultFormValues);
     const [showProgress, setShowProgress] = useState(false);
+    const [openConfirm, setOpenConfirm] = useState(undefined);
     const [error, setError] = useState(false);
 
     /**
@@ -60,19 +60,13 @@ const CreateContract = ({
     }, [showProgress]);
 
     /**
-     * Check if form is correctly filled out
+     * Open confirm dialog
      *
      * @param {Object} e Event
      */
     const handleSubmit = (e) => {
         e.preventDefault();
-        confirmAlert({
-            title: strings.headerConfirm,
-            message: strings.textConfirmSubmitRequest,
-            buttons: [
-                { label: strings.yes, onClick: () => setShowProgress(true) },
-                { label: strings.no }],
-        });
+        setOpenConfirm(strings.textConfirmSubmitRequest);
     };
 
     /**
@@ -142,6 +136,11 @@ const CreateContract = ({
                 </DialogActions>
             </form>
             <ProgressIndicator open={showProgress} />
+            <ConfirmAction
+                openContent={openConfirm}
+                onClose={() => setOpenConfirm(undefined)}
+                onConfirm={() => setShowProgress(true)}
+            />
         </Dialog>
     );
 };
