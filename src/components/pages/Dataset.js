@@ -11,6 +11,7 @@ import DownloadButton from '../components/buttons/DownloadButton';
 import { getContract } from '../../utils/api/contracts';
 import { getDatasetFile } from '../../utils/api/datasets';
 import ConfirmAction from '../dialogs/ConfirmAction';
+import { parseGeoReference } from '../../utils/metadata-parser';
 
 /**
  * Show details of selected dataset
@@ -163,9 +164,9 @@ const Dataset = ({
         let longitude;
         if (dataset.geoReference) {
             try {
-                const geoReference = JSON.parse(dataset.geoReference);
-                latitude = parseFloat(geoReference[0]);
-                longitude = parseFloat(geoReference[1]);
+                const geo = parseGeoReference(dataset.geoReference);
+                latitude = geo.latitude;
+                longitude = geo.longitude;
             } catch (err) {
                 return null;
             }

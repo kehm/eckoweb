@@ -83,7 +83,7 @@ const Datasets = ({ onNav, onPageView }) => {
                             </Button>
                         </span>
                         {filterActive && (
-                            <span className="ml-2">
+                            <span className="ml-2 absolute right-20 top-10">
                                 <Button
                                     variant="text"
                                     color="inherit"
@@ -91,7 +91,7 @@ const Datasets = ({ onNav, onPageView }) => {
                                     type="button"
                                     onClick={() => setFilterActive(false)}
                                 >
-                                    {strings.filterRemove}
+                                    {strings.buttonReset}
                                 </Button>
                             </span>
                         )}

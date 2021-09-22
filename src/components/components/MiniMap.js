@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import RoomOutlined from '@material-ui/icons/RoomOutlined';
+import mapboxgl from 'mapbox-gl';
+
+// workaround for transpiler bug in mapbox-gl
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 /**
  * Show map frame

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   BrowserRouter, Switch,
-  Route, Redirect, Link,
+  Route, Redirect,
 } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import debounce from 'lodash/debounce';
 import { getCookieConsentValue } from 'react-cookie-consent';
 import '../styles/tailwind.css';
@@ -27,7 +28,6 @@ import useFetch from '../hooks/useFetch';
 import Metrics from './components/Metrics';
 import createProfile from '../utils/create-profile';
 import Footer from './nav/Footer';
-import logo from '../images/ORCIDiD_iconvector.svg';
 import Verified from './auth/Verified';
 import Privileged from './auth/Privileged';
 import Verify from './auth/Verify';
@@ -35,6 +35,8 @@ import TokenExpired from './auth/TokenExpired';
 import CookieNotice from './components/CookieNotice';
 import trackPageView from '../utils/analytics';
 import { invalidateSession, validateSession } from '../utils/api/auth';
+import { getDatasetCoordinates } from '../utils/metadata-parser';
+import AuthHeader from './components/AuthHeader';
 
 const App = () => {
   // Set initial state
@@ -73,6 +75,7 @@ const App = () => {
   const [mapWidth, setMapWidth] = useState(0); // Re-render map on window resize
   const [authCompleted, setAuthCompleted] = useState(false);
   const [feedbackTrigger, setFeedbackTrigger] = useState(0);
+  const datasets = useFetch(`${process.env.REACT_APP_API_URL}/datasets/metadata`);
 
   /**
    * Resize map on site size change and orientation change
@@ -169,6 +172,7 @@ const App = () => {
    * Render single-page layout
    */
   const renderPage = () => {
+    const history = useHistory();
     handlePageView(strings.navHome);
     if (window.location.pathname.includes('/home')) setSecondaryNav('home');
     return (
@@ -178,38 +182,17 @@ const App = () => {
           onNavSelect={() => setSecondaryNav(secondaryNav + 1)}
         />
         <Metrics />
-        {showMap && <Map height="450px" />}
+        {showMap && (
+          <Map
+            height="450px"
+            markers={datasets && getDatasetCoordinates(datasets)}
+            onClickMarker={(id) => { setSecondaryNav(secondaryNav + 1); history.push(`/datasets/${id}`); }}
+          />
+        )}
         <Footer onNavSelect={() => setSecondaryNav(secondaryNav + 1)} />
       </div>
     );
   };
-
-  /**
-   * Render authentication info header
-   *
-   * @returns Info header
-   */
-  const renderAuthHeader = () => (
-    <span className="hidden sm:inline absolute mt-2 right-2 text-xs z-10">
-      <img src={logo} alt="ORCID iD logo" height={24} className="hidden lg:inline align-middle" />
-      <a
-        className="hidden lg:inline text-blue-400"
-        target="_blank"
-        rel="noopener noreferrer"
-        href={`${strings.orcidUrl}${login.orcid}`}
-      >
-        {` ${strings.orcidUrl}${login.orcid}`}
-      </a>
-      <Link
-        className="text-darkGrey"
-        to="/"
-        onClick={() => { invalidate(); setSecondaryNav(secondaryNav + 1); }}
-        title={strings.signOut}
-      >
-        {strings.signOutsmall}
-      </Link>
-    </span>
-  );
 
   return (
     <BrowserRouter>
@@ -222,7 +205,12 @@ const App = () => {
                 onClickSignOut={() => invalidate()}
                 feedbackTrigger={feedbackTrigger}
               />
-              {login.authenticated && renderAuthHeader()}
+              {login.authenticated && (
+                <AuthHeader
+                  login={login}
+                  onSignOut={() => { invalidate(); setSecondaryNav(secondaryNav + 1); }}
+                />
+              )}
               <div className="border-solid border-0 border-t-2 border-gray-100">
                 <Switch>
                   <Route path="(/|/home)" exact component={() => renderPage()} />

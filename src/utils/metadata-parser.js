@@ -48,3 +48,33 @@ export const parseLanguages = (arr) => {
     });
     return JSON.stringify(langs).replace(/[[\]"]/g, '').replace(/,/g, ', ');
 };
+
+/**
+ * Parse geo reference string array
+ *
+ * @param {string} value String array
+ * @returns {Object} Latitude and longitude
+ */
+export const parseGeoReference = (value) => {
+    const geoReference = JSON.parse(value);
+    const latitude = parseFloat(geoReference[0]);
+    const longitude = parseFloat(geoReference[1]);
+    return { latitude, longitude };
+};
+
+/**
+ * Get dataset coordinates
+ *
+ * @param {Array} datasets Datasets
+ * @returns {Object} Dataset ID and coordinates
+ */
+export const getDatasetCoordinates = (datasets) => {
+    const arr = [];
+    datasets.forEach((dataset) => {
+        if (dataset.geoReference) {
+            const geo = parseGeoReference(dataset.geoReference);
+            arr.push({ id: dataset.id, latitude: geo.latitude, longitude: geo.longitude });
+        }
+    });
+    return arr;
+};

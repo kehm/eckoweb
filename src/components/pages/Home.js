@@ -23,7 +23,7 @@ const Home = ({ content, onNavSelect }) => {
 
     return (
         <>
-            <div className="even w-full text-darkGrey text-center">
+            <div className="even w-full text-darkGrey text-center bg-lightGrey1">
                 <img src={imgHome} alt="Home background" height={706} width={1920} className="hidden lg:inline relative h-auto max-w-full" />
                 {content && content.homeBlock1 && (
                     <div className="absolute top-36 xl:top-64 w-full m-auto">
