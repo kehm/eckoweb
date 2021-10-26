@@ -94,7 +94,7 @@ const Dataset = ({
     const renderInfo = () => (
         <>
             {dataset.metadata.description && (
-                <div className="mt-10 max-w-xl">
+                <div className="my-10 max-w-xl">
                     <span className="font-light">
                         {strings.labelDescription}
                         :
@@ -173,7 +173,7 @@ const Dataset = ({
         }
         if (latitude !== undefined && longitude !== undefined) {
             return (
-                <div className="mt-16">
+                <div className="mt-16 hidden md:inline">
                     <MiniMap
                         selectable={false}
                         defaultMarker={{ latitude, longitude }}
@@ -186,10 +186,10 @@ const Dataset = ({
     };
 
     return (
-        <div className="m-auto px-10 sm:px-16 pb-20 flex">
+        <div className="m-auto px-2 sm:px-10 flex lg:pt-10 justify-center">
             {dataset && (
                 <>
-                    <div className="leading-loose">
+                    <div className="leading-loose mt-4">
                         <p>{`${dataset.metadata.survey.charAt(0)}${dataset.metadata.survey.substring(1).toLowerCase()}`}</p>
                         <h1>{dataset.metadata.datasetId}</h1>
                         <p className="font-light">

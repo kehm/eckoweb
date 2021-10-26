@@ -88,7 +88,7 @@ const MobileDrawer = ({ selected, onSelect, onClickSignOut }) => {
     );
 
     return (
-        <div className="sm:hidden">
+        <div className="sm:hidden left-0 w-full ml-4">
             <IconButton edge="start" aria-label="open" onClick={() => setOpen(true)}>
                 <Menu fontSize="large" />
             </IconButton>

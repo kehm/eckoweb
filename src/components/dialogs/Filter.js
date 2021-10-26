@@ -194,7 +194,12 @@ const Filter = ({ openDialog, onClose, onUpdate }) => {
     );
 
     return (
-        <Dialog fullWidth scroll="paper" open={openDialog} onClose={() => onClose()}>
+        <Dialog
+            fullWidth
+            scroll="paper"
+            open={openDialog}
+            onClose={() => onClose()}
+        >
             <form className="font-sans sm:p-4" autoComplete="off" onSubmit={handleSubmit}>
                 <DialogTitle>{strings.filterShow}</DialogTitle>
                 <DialogContent>
@@ -214,7 +219,12 @@ const Filter = ({ openDialog, onClose, onUpdate }) => {
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <Button variant="contained" color="primary" size="medium" type="submit">
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="medium"
+                        type="submit"
+                    >
                         {strings.filterApply}
                     </Button>
                 </DialogActions>

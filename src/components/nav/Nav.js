@@ -130,7 +130,7 @@ const Nav = ({ secondaryNav, onClickSignOut, feedbackTrigger }) => {
                     value={tab}
                     onChange={(e, val) => setTab(val)}
                     aria-label="contribute tabs"
-                    className="absolute xl:right-1/2"
+                    className="absolute xl:right-1/2 text-black"
                     TabIndicatorProps={{ style: { opacity: 0 } }}
                 >
                     <Tab label={strings.navSubmit} component={Link} to="/submit" />
@@ -151,12 +151,12 @@ const Nav = ({ secondaryNav, onClickSignOut, feedbackTrigger }) => {
                 onClickSignOut={() => onClickSignOut()}
             />
             <Link
-                className="flex w-72 lg:w-80 md:mr-28 pl-2 md:pl-5 text-lg text-darkGrey text-left break-words"
+                className="flex md:w-72 lg:w-80 mr-4 md:mr-20 pl-2 md:pl-5 text-lg text-darkGrey text-left break-words"
                 to="/"
                 onClick={() => setNavSelected('home')}
             >
                 <img src={logo} alt="ECKO logo" height={46} width={118} />
-                <h2 className="inline w-40 lg:w-44 font-medium text-sm lg:text-base pt-1 lg:pt-0 pl-2 md:pl-4">{strings.siteSubTitle}</h2>
+                <h2 className="sm:hidden md:inline w-40 lg:w-44 font-medium text-sm lg:text-base pt-1 lg:pt-0 pl-2 md:pl-4">{strings.siteSubTitle}</h2>
             </Link>
             <div className="hidden sm:flex">
                 {renderNav()}

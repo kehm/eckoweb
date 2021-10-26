@@ -4,6 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import strings from '../../strings';
+import bg1 from '../../images/ecko-chain.png';
+import imgHome from '../../images/bg-home.png';
 
 /**
  * Render about page
@@ -34,7 +36,7 @@ const About = ({ props, content, onPageView }) => {
                 setTab(0);
                 break;
         }
-    }, []);
+    }, [props.match.params]);
 
     /**
      * Render about section
@@ -43,8 +45,18 @@ const About = ({ props, content, onPageView }) => {
      */
     const renderAbout = () => {
         onPageView(strings.navAbout);
-        return (content && content.about && (
-            <div className="p-5 xl:px-48 text-left" dangerouslySetInnerHTML={{ __html: md.render(content.about.Content) }} />)
+        return content && content.about && (
+            <div className="px-2 lg:px-10 bg-gray-200 pt-2 pb-20">
+                <div className="lg:flex lg:mt-20">
+                    <div>
+                        <h1 className="px-5 md:px-0 mb-4">{strings.navAbout}</h1>
+                        <div className="mb-6" dangerouslySetInnerHTML={{ __html: md.render(content.about.Content) }} />
+                    </div>
+                    <div className="mt-20">
+                        <img src={imgHome} alt="Blockchain illustration" height={320} width={533} className="hidden md:inline h-56 lg:h-72 xl:h-80 lg:mt-6 ml-10 rounded border border-solid" />
+                    </div>
+                </div>
+            </div>
         );
     };
 
@@ -55,8 +67,16 @@ const About = ({ props, content, onPageView }) => {
      */
     const renderWhatIs = () => {
         onPageView(strings.navWhatIs);
-        return (content && content.whatIs && (
-            <div className="p-5 xl:px-48 text-left" dangerouslySetInnerHTML={{ __html: md.render(content.whatIs.Content) }} />)
+        return content && content.whatIs && (
+            <div className="px-2 lg:px-10 bg-gray-200 pt-2 pb-20">
+                <div className="lg:flex lg:mt-20">
+                    <div>
+                        <h1 className="px-5 md:px-0 mb-4">{strings.navWhatIs}</h1>
+                        <img src={bg1} alt="Blockchain illustration" height={320} width={533} className="hidden md:inline h-56 lg:h-72 xl:h-80 lg:mt-6 mr-10 rounded border border-solid" />
+                    </div>
+                    <div className="mb-6" dangerouslySetInnerHTML={{ __html: md.render(content.whatIs.Content) }} />
+                </div>
+            </div>
         );
     };
 
@@ -67,8 +87,13 @@ const About = ({ props, content, onPageView }) => {
      */
     const renderTeam = () => {
         onPageView(strings.navTeam);
-        return (content && content.team && (
-            <div className="p-5 xl:px-48 text-left" dangerouslySetInnerHTML={{ __html: md.render(content.team.Content) }} />)
+        return content && content.team && (
+            <div className="px-2 lg:px-10 bg-gray-200 pt-2 pb-20">
+                <div className="lg:mt-20">
+                    <h1 className="px-5 md:px-0 mb-4">{strings.navTeam}</h1>
+                    <div className="mb-6" dangerouslySetInnerHTML={{ __html: md.render(content.team.Content) }} />
+                </div>
+            </div>
         );
     };
 
@@ -79,8 +104,13 @@ const About = ({ props, content, onPageView }) => {
      */
     const renderPrivacyPolicy = () => {
         onPageView(strings.navPrivacy);
-        return (content && content.privacyPolicy && (
-            <div className="p-5 xl:px-48 text-left" dangerouslySetInnerHTML={{ __html: md.render(content.privacyPolicy.Content) }} />)
+        return content && content.privacyPolicy && (
+            <div className="px-2 lg:px-10 bg-gray-200 pt-2 pb-20">
+                <div className="lg:mt-20">
+                    <h1 className="px-5 md:px-0 mb-4">{strings.navPrivacy}</h1>
+                    <div className="mb-6" dangerouslySetInnerHTML={{ __html: md.render(content.privacyPolicy.Content) }} />
+                </div>
+            </div>
         );
     };
 
@@ -92,7 +122,7 @@ const About = ({ props, content, onPageView }) => {
                         value={tab}
                         onChange={(e, val) => setTab(val)}
                         aria-label="about tabs"
-                        className="absolute xl:right-1/2"
+                        className="absolute xl:right-1/2 text-black"
                         TabIndicatorProps={{ style: { opacity: 0 } }}
                     >
                         <Tab label={content && content.about ? content.about.Title : ''} />
@@ -102,7 +132,7 @@ const About = ({ props, content, onPageView }) => {
                     </Tabs>
                 </AppBar>
             </div>
-            <div className="sm:pt-20 pb-14 text-center leading-normal">
+            <div className="sm:pt-2 pb-14 sm:mt-10 leading-normal">
                 {tab === 0 && renderAbout()}
                 {tab === 1 && renderWhatIs()}
                 {tab === 2 && renderTeam()}

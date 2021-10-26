@@ -14,7 +14,12 @@ import formatDate from '../../../utils/format-date';
 const DatasetList = ({ datasets, dataset, editable }) => {
     const history = useHistory();
 
-    return (
+    /**
+     * Render list
+     *
+     * @returns JSX
+     */
+    const renderList = () => (
         <List>
             {datasets && datasets.map((data) => (
                 <ListItem
@@ -57,6 +62,17 @@ const DatasetList = ({ datasets, dataset, editable }) => {
                 </ListItem>
             ))}
         </List>
+    );
+
+    return (
+        <>
+            <div className="mx-2 lg:hidden">
+                {!dataset && renderList()}
+            </div>
+            <div className="mx-2 hidden lg:inline">
+                {renderList()}
+            </div>
+        </>
     );
 };
 

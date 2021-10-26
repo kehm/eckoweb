@@ -230,6 +230,7 @@ const App = () => {
                     exact
                     render={() => (
                       <Datasets
+                        showMap={showMap}
                         onNav={() => setSecondaryNav(secondaryNav + 1)}
                         onPageView={(title) => handlePageView(title)}
                       />
