@@ -18,6 +18,13 @@ yarn-error.log*
 # OS
 .DS_Store
 
+# Whitelist
+!*.keep
+
 # Env
 .env
-nginx/
+nginx/*.pem
+nginx/*.conf
+nginx/*.cer
+nginx/*.key
+
