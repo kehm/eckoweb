@@ -95,7 +95,6 @@ const strings = {
     titlePolicy: 'Access Policy',
     titleSuccess: 'Success',
     buttonAdd: 'Add',
-    buttonBack: 'Back',
     buttonReadMore: 'Read More',
     buttonExplore: 'Explore',
     buttonMeet: 'Meet the Team',

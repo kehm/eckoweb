@@ -255,7 +255,7 @@ const InfoForm = ({
      */
     const renderOptionalInputs = () => (
         <>
-            {/*edit (remove comment to activate illustration file drop)*/ true ? (
+            {/* remove to activate illustration file drop */ true ? (
                 <div className="mb-6" />
             ) : (
                 <FileDrop

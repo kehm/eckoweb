@@ -164,9 +164,7 @@ const App = () => {
   /**
    * Handle page view tracking
    */
-  const handlePageView = useCallback(
-    debounce(async (title) => trackPageView(title), 500), [],
-  );
+  const handlePageView = useCallback(debounce(async (title) => trackPageView(title), 500), []);
 
   /**
    * Render single-page layout

@@ -4,3 +4,4 @@ build
 .git
 .eslintcache
 *.dev.js
+*test.js

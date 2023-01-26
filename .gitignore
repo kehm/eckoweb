@@ -2,6 +2,7 @@
 node_modules/
 dist/
 build/
+coverage/
 .eslintcache
 *.dev.js
 
@@ -27,4 +28,3 @@ nginx/*.pem
 nginx/*.conf
 nginx/*.cer
 nginx/*.key
-

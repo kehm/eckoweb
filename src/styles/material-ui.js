@@ -1,5 +1,6 @@
 import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core/styles';
-// Importing unstable_ to get rid of findDOMNode warnings in strict mode. Should be fixed in material-ui v5.
+// Importing unstable_ to get rid of findDOMNode warnings in strict mode.
+// Should be fixed in material-ui v5.
 
 /**
  * Create Material UI theme

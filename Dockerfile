@@ -1,5 +1,5 @@
 # Build react application 
-FROM node:15.5-alpine as build
+FROM node:16.19-alpine as build
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY ./package.json /app/
@@ -8,7 +8,7 @@ COPY . /app
 RUN yarn build
 
 # Copy files and launch image
-FROM nginx:1.19.6-alpine
+FROM nginx:1.23.3-alpine
 COPY --from=build /app/build /usr/share/nginx/html
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx/nginx.conf /etc/nginx/conf.d

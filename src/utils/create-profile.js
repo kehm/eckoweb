@@ -6,8 +6,12 @@ import Cookies from 'universal-cookie';
  * @param {Object} profile User profile
  */
 const setProfile = (profile) => {
+    let authenticated = false;
+    if (profile && profile.email) {
+        authenticated = true;
+    }
     const login = {
-        authenticated: profile && profile.email ? true : false,
+        authenticated,
         orcid: profile && profile.orcid,
         name: profile && profile.name,
         email: profile && profile.email,
