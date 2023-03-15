@@ -11,7 +11,7 @@ afterEach(() => {
 describe('Render FileDrop', () => {
     describe('with required true', () => {
         test('should render text', () => {
-            const fileTypes = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/csv';
+            const fileTypes = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.oasis.opendocument.spreadsheet, text/csv';
             render(
                 <FileDrop
                     required
@@ -34,7 +34,7 @@ describe('Render FileDrop', () => {
     });
     describe('with required false', () => {
         test('should render text', () => {
-            const fileTypes = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/csv';
+            const fileTypes = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.oasis.opendocument.spreadsheet, text/csv';
             render(
                 <FileDrop
                     accept={fileTypes}

@@ -9,8 +9,8 @@ import InfoPopover from '../InfoPopover';
  * Render editable list
  */
 const EditableList = ({
-    name, type, preserveIndex, headerLabel, label,
-    info, value, options, onChange, onChangeArr, onAdd,
+    name, type, preserveItem, headerLabel, label, info,
+    value, options, onChange, onChangeArr, onAdd, editableOrder,
 }) => {
     /**
      * Trigger onAdd on Enter key press
@@ -26,7 +26,7 @@ const EditableList = ({
 
     return (
         <div className="border border-solid p-4 rounded border-gray-300 mb-6">
-            <h3 className="font-semibold text-sm mb-6">{headerLabel}</h3>
+            <h3 className="font-normal text-sm mb-6">{headerLabel}</h3>
             <div className="flex">
                 <TextField
                     onKeyDown={handleOnKeyDown}
@@ -61,8 +61,9 @@ const EditableList = ({
             </div>
             <StringList
                 strings={options}
-                preserveIndex={preserveIndex}
+                preserveItem={preserveItem}
                 onUpdate={(arr) => onChangeArr(arr)}
+                editable={editableOrder}
             />
         </div>
     );

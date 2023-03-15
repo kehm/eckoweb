@@ -12,7 +12,7 @@ import createFormHeader from '../../utils/create-form-header';
 /**
  * Show form for contact information
  */
-const ContactForm = ({ onPrev, onNext }) => {
+const ContactForm = ({ onPrev, onNext, edit }) => {
     const { login } = useContext(LoginContext);
     const { form } = useContext(FormContext);
     const defaults = form;
@@ -106,18 +106,24 @@ const ContactForm = ({ onPrev, onNext }) => {
             </h1>
             <p className="mt-6 mb-8">{strings.infoMainContact}</p>
             {renderContactInputs()}
-            <EditableList
-                name="contributorName"
-                preserveIndex={0}
-                label={strings.labelFullName}
-                headerLabel={strings.labelContributors}
-                info={strings.infoContributors}
-                value={formValues.contributorName}
-                options={formValues.contributors}
-                onAdd={() => addNewContributor()}
-                onChange={(contributorName) => setFormValues({ ...formValues, contributorName })}
-                onChangeArr={(contributors) => setFormValues({ ...formValues, contributors, contributorName: '' })}
-            />
+            {!edit && (
+                <EditableList
+                    name="contributorName"
+                    preserveItem={login.name}
+                    label={strings.labelFullName}
+                    headerLabel={strings.labelContributors}
+                    info={strings.infoContributors}
+                    value={formValues.contributorName}
+                    options={formValues.contributors}
+                    onAdd={() => addNewContributor()}
+                    onChange={(contributorName) => setFormValues({
+                        ...formValues,
+                        contributorName,
+                    })}
+                    onChangeArr={(contributors) => setFormValues({ ...formValues, contributors, contributorName: '' })}
+                    editableOrder
+                />
+            )}
             <NextButton />
             <BackButton onClick={onPrev} />
         </form>

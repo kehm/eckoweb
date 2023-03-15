@@ -8,7 +8,7 @@ import strings from '../../strings';
  * Render email verified
  */
 const Verified = () => (
-    <div className="py-12 m-auto max-w-lg relative">
+    <div className="px-4 py-12 m-auto max-w-lg relative">
         <h1 className="mb-10">{strings.welcome}</h1>
         <p className="mb-10">{strings.emailVerified}</p>
         <Button

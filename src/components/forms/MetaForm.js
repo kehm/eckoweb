@@ -64,7 +64,7 @@ const MetaForm = ({ onPrev, onNext }) => {
             <EditableList
                 name="habitats"
                 label={strings.labelHabitat}
-                headerLabel={strings.labelAddHabitat}
+                headerLabel={strings.labelHabitats}
                 info={strings.infoHabitat}
                 value={formValues.habitatName}
                 options={formValues.habitats}
@@ -82,7 +82,7 @@ const MetaForm = ({ onPrev, onNext }) => {
             <EditableList
                 name="taxa"
                 label={strings.labelTaxon}
-                headerLabel={strings.labelAddTaxa}
+                headerLabel={strings.labelTaxa}
                 info={strings.infoTaxon}
                 value={formValues.taxonName}
                 options={formValues.taxa}

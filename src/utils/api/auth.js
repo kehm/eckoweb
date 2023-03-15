@@ -30,7 +30,7 @@ export const invalidateSession = async () => {
 export const addEmailToProfile = async (email) => {
     await axios.post(
         `${process.env.REACT_APP_API_URL}/auth/profile`,
-        email,
+        { email },
         { timeout: process.env.REACT_APP_HTTP_TIMEOUT },
     );
 };

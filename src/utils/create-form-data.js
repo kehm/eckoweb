@@ -46,9 +46,14 @@ const createFormData = (data) => {
         });
     }
     if (data.geoReference) {
-        data.geoReference.forEach((geoReference, index) => {
-            formData.append(`geoReference[${index}]`, geoReference);
-        });
+        const latitude = parseFloat(data.geoReference[0]);
+        const longitude = parseFloat(data.geoReference[1]);
+        if (!Number.isNaN(latitude) && latitude >= -90 && latitude <= 90
+            && !Number.isNaN(longitude) && longitude >= -180 && longitude <= 180) {
+            data.geoReference.forEach((geoReference, index) => {
+                formData.append(`geoReference[${index}]`, geoReference);
+            });
+        }
     }
     if (data.collectionId && data.collectionId !== '') formData.append('collectionId', data.collectionId);
     if (data.description && data.description !== '') formData.append('description', data.description);

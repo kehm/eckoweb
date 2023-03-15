@@ -184,6 +184,7 @@ const Submit = ({ onNav, edit }) => {
                     <ContactForm
                         onNext={(data) => handleSubmit(data)}
                         onPrev={() => setFormSelect(formSelect - 1)}
+                        edit={edit}
                     />
                 ))
                 || (formSelect === 5 && (

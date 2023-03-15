@@ -33,6 +33,7 @@ const Register = ({ onRegister }) => {
             await validateSession();
             setLogin(createProfile(true));
             setSuccess(true);
+            setError(false);
         } catch (err) {
             setError(true);
         }
@@ -68,7 +69,7 @@ const Register = ({ onRegister }) => {
     );
 
     return (
-        <div className="max-w-lg relative">
+        <div className="px-4 max-w-lg relative">
             <form onSubmit={handleSubmit} className="m-auto rounded" autoComplete="off">
                 <p className="mb-6 font-semibold">{strings.registerAffiliation}</p>
                 {renderForm()}
@@ -86,6 +87,7 @@ const Register = ({ onRegister }) => {
                             size="large"
                             type="submit"
                             startIcon={<LocationCity />}
+                            disabled={!organizationId}
                         >
                             {strings.buttonRegister}
                         </Button>

@@ -60,11 +60,6 @@ const App = () => {
   const aboutContent = {
     about: useFetch(`${process.env.REACT_APP_CMS_URL}/${process.env.REACT_APP_CMS_ABOUT_ID}`),
     privacyPolicy: useFetch(`${process.env.REACT_APP_CMS_URL}/${process.env.REACT_APP_CMS_PRIVACY_POLICY_ID}`),
-    whatIs: useFetch(`${process.env.REACT_APP_CMS_URL}/${process.env.REACT_APP_CMS_WHAT_IS_ID}`),
-    team: useFetch(`${process.env.REACT_APP_CMS_URL}/${process.env.REACT_APP_CMS_TEAM_ID}`),
-    terms: useFetch(`${process.env.REACT_APP_CMS_URL}/${process.env.REACT_APP_CMS_TERMS_ID}`),
-    faq: useFetch(`${process.env.REACT_APP_CMS_URL}/${process.env.REACT_APP_CMS_FAQ_ID}`),
-    contact: useFetch(`${process.env.REACT_APP_CMS_URL}/${process.env.REACT_APP_CMS_CONTACT_ID}`),
   };
 
   const [login, setLogin] = useState(loginState);

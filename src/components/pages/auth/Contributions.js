@@ -22,7 +22,7 @@ const Contributions = ({ onNav }) => {
         if (datasets && datasets.length > 0) {
             if (id) {
                 setDataset(datasets.find((element) => element.metadata.datasetId === id));
-            } else setDataset(datasets[0]);
+            } else setDataset(undefined);
         }
     }, [id, datasets]);
 

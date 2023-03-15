@@ -13,7 +13,6 @@ import { addEmailToProfile } from '../../utils/api/auth';
 const SignUp = ({ status }) => {
     const defaultFormValues = {
         email: '',
-        organizationId: '',
     };
     const [formValues, setFormValues] = useState(defaultFormValues);
     const history = useHistory();
@@ -27,11 +26,7 @@ const SignUp = ({ status }) => {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
-            const values = {
-                email: formValues.email,
-                organizationId: formValues.organizationId === '' ? 0 : formValues.organizationId,
-            };
-            await addEmailToProfile(values);
+            await addEmailToProfile(formValues.email);
             history.push({ pathname: '/auth/success', state: { success: true } });
         } catch (err) {
             setError(true);
@@ -61,7 +56,7 @@ const SignUp = ({ status }) => {
     );
 
     return (
-        <div className="relative max-w-lg pb-14 m-auto text-left">
+        <div className="px-4 relative max-w-lg pb-14 m-auto text-left">
             {status === 'signup' && (
                 <form onSubmit={handleSubmit} className="m-auto rounded" autoComplete="off">
                     <h1 className="pb-2">{strings.welcome}</h1>

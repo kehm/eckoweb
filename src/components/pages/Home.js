@@ -12,7 +12,7 @@ import bg3 from '../../images/ecko-team.png';
  * Render home page
  */
 const Home = ({ content, onNavSelect }) => {
-    const md = new Remarkable();
+    const md = new Remarkable({ html: true, breaks: true });
 
     /**
      * Scroll to top on first page load
@@ -94,7 +94,7 @@ const Home = ({ content, onNavSelect }) => {
                                 size="medium"
                                 type="button"
                                 component={Link}
-                                to="/about/about"
+                                to="/datasets"
                                 onClick={() => onNavSelect()}
                             >
                                 {strings.buttonExplore}
@@ -117,10 +117,10 @@ const Home = ({ content, onNavSelect }) => {
                                 size="medium"
                                 type="button"
                                 component={Link}
-                                to="/about/team"
+                                to="/about/about"
                                 onClick={() => onNavSelect()}
                             >
-                                {strings.buttonMeet}
+                                {strings.buttonContactUs}
                             </Button>
                         </div>
                     )}

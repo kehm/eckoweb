@@ -1,0 +1,46 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# Docker-Compose file for bringing up ECKO web
+
+version: "3"
+
+networks:
+  ecko:
+    external:
+      name: ecko-network
+
+services:
+  web:
+    container_name: web.ecko
+    image: ecko/web:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_HTTP_TIMEOUT=120000
+        - REACT_APP_MAX_FILE_SIZE=25000000
+        - REACT_APP_AUTH_COOKIE=auth
+        - REACT_APP_MAPBOX_TOKEN=
+        - REACT_APP_GOOGLE_ANALYTICS_ID=
+        - REACT_APP_API_URL=
+        - REACT_APP_CMS_URL=
+        - REACT_APP_CMS_HOME_1_ID=home-block-1
+        - REACT_APP_CMS_HOME_2_ID=home-block-2
+        - REACT_APP_CMS_HOME_3_ID=home-block-3
+        - REACT_APP_CMS_HOME_4_ID=home-block-4
+        - REACT_APP_CMS_ABOUT_ID=about
+        - REACT_APP_CMS_PRIVACY_POLICY_ID=privacy-policy
+        - REACT_APP_CMS_WHAT_IS_ID=what-is-ecko
+    restart: unless-stopped
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      - ./nginx/dhparam.pem:/etc/nginx/certs/dhparam.pem
+      - ./nginx/cert.cer:/etc/nginx/certs/cert.cer
+      - ./nginx/key.key:/etc/nginx/private/key.key
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - ecko
+    logging:
+        driver: local

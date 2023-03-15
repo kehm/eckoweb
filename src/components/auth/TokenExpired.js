@@ -6,7 +6,7 @@ import strings from '../../strings';
  * Render token expired page
  */
 const TokenExpired = () => (
-    <div className="py-12 m-auto max-w-lg relative">
+    <div className="px-4 py-12 m-auto max-w-lg relative">
         <h1 className="pb-2">{strings.linkExpired}</h1>
         <p>
             <Link

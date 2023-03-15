@@ -13,7 +13,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import strings from '../../strings';
 import useFetch from '../../hooks/useFetch';
-import { createUserAffiliation } from '../../utils/api/affiliations';
+import { createUserAffiliation, removeUserAffiliation } from '../../utils/api/affiliations';
 import ConfirmAction from './ConfirmAction';
 
 /**
@@ -59,7 +59,7 @@ const AddAffiliation = ({
      */
     const removeAffiliation = async () => {
         try {
-            await removeAffiliation(organizationId);
+            await removeUserAffiliation(organizationId);
             setError(false);
             onClose();
             onSuccess();

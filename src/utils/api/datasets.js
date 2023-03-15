@@ -12,9 +12,9 @@ export const getDatasetFile = async (datasetId) => {
             'Accept': 'application/octect-stream',
         },
         timeout: process.env.REACT_APP_HTTP_TIMEOUT,
-        responseType: 'blob',
+        responseType: 'arrayBuffer',
     });
-    return response.data;
+    return Buffer.from(response.data, 'base64');
 };
 
 /**

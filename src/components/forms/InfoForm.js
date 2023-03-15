@@ -50,7 +50,7 @@ const InfoForm = ({
         { value: 'RESURVEY', label: strings.resurvey },
         { value: 'COMBINATION', label: strings.combination },
     ];
-    const fileTypes = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/csv';
+    const fileTypes = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.oasis.opendocument.spreadsheet, text/csv';
     const imageFileTypes = 'image/jpeg, image/png';
 
     /**
@@ -275,7 +275,7 @@ const InfoForm = ({
                 name="references"
                 type="url"
                 label={strings.labelReferences}
-                headerLabel={strings.labelAddReference}
+                headerLabel={strings.labelRefs}
                 info={strings.infoReferences}
                 value={formValues.referenceName}
                 options={formValues.references}

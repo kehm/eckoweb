@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import RoomOutlined from '@material-ui/icons/RoomOutlined';
+import AdjustOutlined from '@material-ui/icons/AdjustOutlined';
 import mapboxgl from 'mapbox-gl';
 
 // workaround for transpiler bug in mapbox-gl
@@ -36,7 +36,7 @@ const Map = ({ height, markers, onClickMarker }) => {
                     offsetTop={-10}
                     onClick={() => onClickMarker(marker.id)}
                 >
-                    <RoomOutlined className="text-3xl text-red-600 cursor-pointer" />
+                    <AdjustOutlined className="text-3xl text-yellow-500 cursor-pointer" />
                 </Marker>
             ))}
         </ReactMapGL>

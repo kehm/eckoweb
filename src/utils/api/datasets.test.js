@@ -17,9 +17,10 @@ afterEach(() => {
 
 describe('Call function getDatasetFile', () => {
     test('should return dataset', async () => {
-        getMock.mockResolvedValue({ data: { datasetId: 'OS-2020-2021-NO-940881' } });
-        const dataset = await getDatasetFile('OS-2020-2021-NO-940881');
-        expect(dataset.datasetId).toEqual('OS-2020-2021-NO-940881');
+        getMock.mockResolvedValue({ data: 'test' });
+        await expect(getDatasetFile(
+            'OS-2020-2021-NO-940881',
+        )).resolves.not.toThrowError();
     });
 });
 

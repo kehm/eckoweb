@@ -176,7 +176,7 @@ const Dataset = ({
                 <div className="mt-16 hidden md:inline">
                     <MiniMap
                         selectable={false}
-                        defaultMarker={{ latitude, longitude }}
+                        marker={{ latitude, longitude }}
                         scrollZoom={false}
                     />
                 </div>

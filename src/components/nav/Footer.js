@@ -35,7 +35,7 @@ const Footer = ({ onNavSelect }) => (
                         onClick={() => onNavSelect()}
                         className="text-white hover:text-yellow-500"
                     >
-                        {strings.navFAQ}
+                        {strings.navWhatIs}
                     </Link>
                 </li>
                 <li className="inline mr-5">
@@ -45,33 +45,6 @@ const Footer = ({ onNavSelect }) => (
                         className="text-white hover:text-yellow-500"
                     >
                         {strings.navPrivacy}
-                    </Link>
-                </li>
-                <li className="inline mr-5">
-                    <Link
-                        to="/about/about"
-                        onClick={() => onNavSelect()}
-                        className="text-white hover:text-yellow-500"
-                    >
-                        {strings.navTerms}
-                    </Link>
-                </li>
-                <li className="inline mr-5">
-                    <Link
-                        to="/about/whatis"
-                        onClick={() => onNavSelect()}
-                        className="text-white hover:text-yellow-500"
-                    >
-                        {strings.navWhatIs}
-                    </Link>
-                </li>
-                <li className="inline mr-5">
-                    <Link
-                        to="/about/team"
-                        onClick={() => onNavSelect()}
-                        className="text-white hover:text-yellow-500"
-                    >
-                        {strings.navTeam}
                     </Link>
                 </li>
                 <li className="inline mr-5">

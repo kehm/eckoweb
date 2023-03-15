@@ -25,7 +25,7 @@ const GeoForm = ({ onPrev, onNext, original }) => {
         countries: defaults.countries || [],
         continents: defaults.continents || [],
         earliestYearCollected: defaults.earliestYearCollected || '',
-        geoReference: defaults.geoReference || '',
+        geoReference: defaults.geoReference || [28.000000, 2.000000],
         geodeticDatum: defaults.geodeticDatum || '',
         latestYearCollected: defaults.latestYearCollected || '',
         latitude: defaults.latitude || '',
@@ -254,30 +254,71 @@ const GeoForm = ({ onPrev, onNext, original }) => {
      */
     const renderGeoReference = () => (
         <div className="mb-10 m-auto">
-            <TextField
-                required
-                id="geoReference"
-                name="geoReference"
-                type="text"
-                label={`${strings.labelGeoRef} (${strings.clickMap})`}
-                variant="outlined"
-                fullWidth
-                value={formValues.geoReference}
-                InputProps={{ endAdornment: <InfoIcon info={strings.infoGeoRef} /> }}
-                inputProps={{ maxLength: 280 }}
-                disabled={original !== undefined}
-            />
+            <label className="text-sm text-gray-600 relative" htmlFor="geoReference">
+                {`${strings.labelGeoRef} (${strings.clickMap})`}
+                :
+                <span className="absolute -left-9 sm:-left-14 top-8">
+                    <InfoPopover content={strings.infoGeoRef} />
+                </span>
+                <div className="flex mt-2">
+                    <TextField
+                        fullWidth
+                        id="geoRefLatitude"
+                        name="geoRefLatitude"
+                        type="number"
+                        label={strings.labelLatitude}
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        value={parseFloat(formValues.geoReference[0])}
+                        onChange={(e) => setFormValues({
+                            ...formValues,
+                            geoReference: [
+                                parseFloat(e.target.value),
+                                formValues.geoReference[1],
+                            ],
+                        })}
+                        inputProps={{ min: -90, max: 90, step: 0.000001 }}
+                        disabled={original !== undefined}
+                    />
+                    <TextField
+                        fullWidth
+                        id="geoRefLongitude"
+                        name="geoRefLongitude"
+                        type="number"
+                        label={strings.labelLongitude}
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        value={parseFloat(formValues.geoReference[1])}
+                        onChange={(e) => setFormValues({
+                            ...formValues,
+                            geoReference: [
+                                formValues.geoReference[0],
+                                parseFloat(e.target.value),
+                            ],
+                        })}
+                        inputProps={{ min: -180, max: 180, step: 0.000001 }}
+                        disabled={original !== undefined}
+                    />
+                </div>
+            </label>
             {!original && (
                 <MiniMap
                     selectable
-                    onSelect={(e) => setFormValues({
+                    onSelect={(latitude, longitude) => setFormValues({
                         ...formValues,
                         geoReference: [
-                            parseFloat(e.lngLat[1]).toFixed(6),
-                            parseFloat(e.lngLat[0]).toFixed(6),
+                            latitude,
+                            longitude,
                         ],
                     })}
-                    defaultMarker={formValues.geoReference}
+                    marker={{
+                        latitude: formValues.geoReference[0],
+                        longitude: formValues.geoReference[1],
+                    }}
                     scrollZoom
                 />
             )}

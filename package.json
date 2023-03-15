@@ -1,11 +1,11 @@
 {
-  "name": "ecko-web",
+  "name": "eckoweb",
   "version": "1.0.0",
-  "description": "React.js frontend application for the ECKO Blockchain",
+  "description": "React.js frontend application for the ECKOchain",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/kehm/ecko-web"
+    "url": "https://github.com/kehm/eckoweb"
   },
   "author": "kehm",
   "license": "Apache-2.0",
@@ -14,8 +14,7 @@
     "build": "craco build",
     "test": "craco test",
     "test:coverage": "craco test --env=jsdom --watchAll=false --coverage",
-    "eject": "react-scripts eject",
-    "build:docker": "docker build -f Dockerfile -t ecko/web:latest ."
+    "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [

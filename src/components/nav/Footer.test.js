@@ -17,18 +17,12 @@ describe('Render Footer', () => {
             </BrowserRouter>,
         );
         const text1 = screen.getByText(strings.navHome);
-        const text2 = screen.getByText(strings.navFAQ);
-        const text3 = screen.getByText(strings.navPrivacy);
-        const text4 = screen.getByText(strings.navTerms);
-        const text5 = screen.getByText(strings.navWhatIs);
-        const text6 = screen.getByText(strings.navTeam);
-        const text7 = screen.getByText(strings.navContact);
+        const text2 = screen.getByText(strings.navPrivacy);
+        const text3 = screen.getByText(strings.navWhatIs);
+        const text4 = screen.getByText(strings.navContact);
         expect(text1).toBeInTheDocument();
         expect(text2).toBeInTheDocument();
         expect(text3).toBeInTheDocument();
         expect(text4).toBeInTheDocument();
-        expect(text5).toBeInTheDocument();
-        expect(text6).toBeInTheDocument();
-        expect(text7).toBeInTheDocument();
     });
 });

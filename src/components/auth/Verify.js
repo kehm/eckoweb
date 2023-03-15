@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import strings from '../../strings';
 import LoginContext from '../../context/LoginContext';
 import createProfile from '../../utils/create-profile';
-import { requestToken } from '../../utils/api/auth';
+import { requestToken, resetEmail } from '../../utils/api/auth';
 
 /**
  * Render email verified
@@ -33,7 +33,7 @@ const Verify = () => {
     /**
      * Reset email address
      */
-    const resetEmail = async () => {
+    const reset = async () => {
         try {
             await resetEmail();
             setLogin(createProfile(false));
@@ -44,7 +44,7 @@ const Verify = () => {
     };
 
     return (
-        <div className="py-12 m-auto max-w-lg relative">
+        <div className="px-4 py-12 m-auto max-w-lg relative">
             <h1 className="mb-10">{strings.pleaseVerifyEmail}</h1>
             <p>{strings.mustVerify}</p>
             <p className="mt-6 mb-10">{sent ? strings.linkSent : strings.notReceive}</p>
@@ -79,7 +79,7 @@ const Verify = () => {
                 color="secondary"
                 size="medium"
                 type="button"
-                onClick={() => resetEmail()}
+                onClick={() => reset()}
             >
                 {strings.buttonResetEmail}
             </Button>
